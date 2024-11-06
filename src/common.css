@@ -1,0 +1,145 @@
+/* шрифты */
+@font-face {
+	font-family: 'Ferry'; 
+	src: url(/src/assets/fonts/ferry_black.otf); 
+}
+
+@font-face {
+	font-family: 'Inter'; 
+	src: url(/src/assets/fonts/Inter-Regular.otf); 
+}
+
+@font-face {
+	font-family: 'Inter medium'; 
+	src: url(/src/assets/fonts/Inter-Medium.otf); 
+}
+
+/* обнуление стилей браузера */
+/*! minireset.css v0.0.3 | MIT License | github.com/jgthms/minireset.css */
+html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6 {
+  margin: 0;  
+  padding: 0;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-size: 100%;  
+  font-weight: normal;
+} 
+ul {
+  list-style: none;
+} 
+button,input,select,textarea {
+  margin: 0;
+} 
+html {
+  box-sizing: border-box;
+} 
+*, *:before, *:after { 
+  box-sizing: inherit;
+}
+img,embed,iframe,object,audio,video {
+  height: auto;  
+  max-width: 100%;
+} 
+iframe {
+  border: 0;
+} 
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,th {
+  padding: 0;  
+  text-align: left;
+}
+a {
+  text-decoration: none;
+  color: var(--black);
+  cursor: pointer;
+}
+textarea:focus, input:focus{
+  outline: none;
+}
+
+/* общие */
+:root {
+  font-family: Inter, Arial, sans-serif;
+  line-height: 20px;
+  font-size: 16px;
+  color: var(--black);
+  background-color: var(--white);
+  
+  /* переменные */
+  --black: #000000;
+  --white: #ffffff;
+  --main: #029491;
+  --main-light: #7CE3E1;
+  --dop-bright: #FFB64F;
+  --dop-dark: #5970FF;
+  --grey: #989898;
+  --grey-light: #C7C7C7;
+  --badge: #3BA5E0;
+  --red: #FF5959;
+}
+
+h1 {
+  font-family: Ferry, Arial, sans-serif;
+  font-size: 36px;
+  line-height: 42px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-family: Ferry, Arial, sans-serif;
+  font-size: 42px;
+  line-height: 50px;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: Inter medium, Arial, sans-serif;
+  font-size: 27px;
+  line-height: 32px;
+  padding-bottom: 10px;
+}
+h4 {
+  font-weight: bold;
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+a:hover {
+  color: var(--main);
+}
+
+.flex {
+  display: flex;
+  align-items: center; 
+}
+.flex-btw {
+  justify-content: space-between; 
+}
+
+.grey {
+  color: var(--grey); 
+}
+.stretch {
+  width: 100%;
+  max-width:none
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+body {
+  height: 100vh;
+}
+.main {
+  flex: 1 0 auto;
+}

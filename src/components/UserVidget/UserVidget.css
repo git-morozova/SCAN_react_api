@@ -1,0 +1,64 @@
+.auth__reg {
+    margin: 0 0 0 auto;
+}
+
+.auth__btn {
+    margin: 0
+}
+
+.auth__line {
+    width:2px;
+    height:26px;
+    margin: 0 20px;
+}
+
+.user-block__main {
+    padding-right: 8px;
+}
+.main__name {
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.counters {
+    background-color:#f4f4f4;
+    border-radius: 5px;
+    width: 175px;
+    height: 58px; 
+    justify-content: center;
+    flex-direction: column;
+}
+.counters__img {
+animation-name: rotation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@keyframes rotation {
+    0% {
+        transform:rotate(0deg);
+    }
+    100% {
+        transform:rotate(360deg);
+    }
+}
+
+.user-block__avatar {
+    width: 40px;
+}
+.counters__text {
+    font-size: 10px;
+    color: var(--grey);
+    padding-right: 5px;
+    width: 126px;
+    text-align: right;
+}
+.counters__sum {
+font-weight: 700;
+font-family: Inter medium, Arial, sans-serif;
+font-size: 12px;
+width: 22px;
+}
+.bright {
+    color: #8AC540;
+    }

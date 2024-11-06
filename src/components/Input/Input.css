@@ -1,0 +1,30 @@
+.input-default {
+  height: 43px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px 0px #0000000d;
+  border: 1.5px solid var(--grey-light);
+  padding: 0 15px;
+}
+.input-default:focus {
+  border: 1.5px solid var(--main);
+}
+.input-error {
+  border: 1.5px solid var(--red);
+  color: var(--red);
+}
+.input-errorText {
+  color: var(--red);
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: -25px;
+}
+.input-default::placeholder {
+  color: #d8d8d8;
+  text-align: center;
+}
+
+.input-default-label {
+  padding: 30px 0 15px 0;
+  font-size: 16px;
+  display: block;
+}

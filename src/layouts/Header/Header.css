@@ -1,0 +1,22 @@
+.logo {
+  flex-basis: 25%;
+}
+.logo__img {
+  width: 124px;
+  margin: auto 0;
+}
+
+.menu {
+  gap: 49px;  
+  align-items: center;
+}
+
+.header {
+  padding: 20px 0;
+  min-height: 103px;
+}
+
+.user, .auth {
+  flex-basis: 35%;
+  width: 300px;
+}

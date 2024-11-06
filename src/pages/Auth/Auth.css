@@ -1,0 +1,18 @@
+.auth__title {
+    width:55%;
+    padding-top:50px
+}
+.auth__imgBlock {
+    margin: 20px 0 100px 100px;
+}
+
+.auth__formBlock {
+    width:45%;
+    position:relative;
+}
+.auth__lock {
+    position:absolute;
+    top:0;
+    left:0;
+    z-index: 10;
+}

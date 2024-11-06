@@ -1,0 +1,23 @@
+/*блок hero*/
+.big {
+  font-size: 55px;
+  line-height: 62px;
+}
+.heroHeader {
+  width: 57%;
+}
+.heroText {
+  padding: 20px 0 40px 0;
+}
+.heroImage {
+  width: 43%;
+  padding: 60px 40px 0 0;
+}
+
+/*блок ПОЧЕМУ ИМЕННО МЫ*/
+.blockImage {
+  padding-top:50px
+}
+.blockHeader {
+  padding-top:100px
+}

@@ -1,0 +1,14 @@
+.footer {
+    background-color: var(--main);
+    padding: 25px 0;
+    flex: 0 0 auto;
+}
+.footer__text {
+    color: var(--white);
+    flex-direction: column;
+    text-align: right;
+    gap: 20px;
+}
+.footer__text > p {
+    width: 100%;
+}
