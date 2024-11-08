@@ -6,17 +6,11 @@
   flex-direction: column;
   box-shadow: 0px 0px 12px 0px #00000033;
   border-radius: 10px;
-  padding: 0 44px 50px 32px;
-}
-
-.searchForm__submit {
-  max-width: 305px;
-  font-size: 22px;
-  padding: 0.7em 1.2em;
+  padding: 0 32px 32px 32px;
 }
 
 .searchForm__top {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
 }
@@ -31,4 +25,23 @@
 }
 .searchForm__checkbox {
   padding-top: 10px;
+}
+.searchForm__bottom  {
+  justify-content: space-between;
+}
+.searchForm__btn {
+  width: 270px;
+  margin-top: auto;  
+  }
+.searchForm__submit {
+  font-size: 22px;
+  padding: 0.7em 1.2em;
+}
+.searchForm__submitLabel {
+  padding-top:10px;
+font-size: 14px;
+color: var(--grey);
+}
+.searchForm__range {
+  padding-bottom:45px;
 }

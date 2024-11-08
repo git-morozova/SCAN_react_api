@@ -128,6 +128,9 @@ a:hover {
 .grey {
   color: var(--grey); 
 }
+.red {
+  color: var(--red); 
+}
 .stretch {
   width: 100%;
   max-width:none
@@ -142,4 +145,38 @@ body {
 }
 .main {
   flex: 1 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+.block {
+  display: block;
+}
+.select {
+  height: 43px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px 0px #0000000d;
+  border: 1.5px solid var(--grey-light);
+  padding: 0 15px;
+  
+  /*стрелка*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;  
+  background-image: url("/src/assets/img/icons/arrow_down.svg");
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 15px;
+
+}
+.select:focus {
+  border: 1.5px solid var(--main);
+  outline: 0;
+}
+
+.select-label {
+  padding: 30px 0 15px 0;
+  font-size: 16px;
+  display: block;
 }

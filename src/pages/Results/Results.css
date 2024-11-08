@@ -1,0 +1,26 @@
+.results__title {
+    width:52%;
+    margin:50px 40px 0 0;
+}
+.results__top {
+    display: flex;
+    align-items: flex-start
+}
+.results__text {
+    padding-top:30px;
+    font-size:18px;
+    line-height:22px
+}
+.results__img {
+    margin-right: 40px
+}
+.results__header {
+    font-size:27px;
+    line-height:32px;
+}
+.results__found {
+    padding-top:20px;
+    font-size:16px;
+    line-height:20px
+
+}

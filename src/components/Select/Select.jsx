@@ -2,9 +2,9 @@ import "./Select.css";
 import { useState } from 'react';
 
 function Select({style, id, label}) {
-    let styles = `select-default`;
+    let styles = `select`;
     if (style) {
-      styles = `select-default ` + style;
+      styles = `select ` + style;
     }
 
     let options;
@@ -20,7 +20,7 @@ function Select({style, id, label}) {
 
   return (
     <> 
-        <label className="select-default-label">{label}</label>     
+        <label className="select-label">{label}</label>     
         <select
           id={id}
           value={option}

@@ -1,28 +1,32 @@
 import "./Input.css";
 
-function Input({ type, style, placeholder, label }) {
+function Input({ type, style, placeholder, label, required }) {
   let styles;
   if (style) {
     styles = `input-default ` + style;
   }
+  let star = "";
+  if (required) {
+    star = `\u00a0*`;
+  }  
 
-  switch (type) {
-    case "password":
-      console.log("input password");
+  let errorText = "";
+  switch (label) {
+    case "ИНН компании":
+      errorText = "Введите корректные данные";
       break;
-    case "text":
-      console.log("input text");
+    case "Количество документов в выдаче":
+      errorText = "Обязательное поле";
       break;
     default:
-      console.log("input default");
       break;
   }
 
   return (
     <>
-      <label className="input-default-label">{label}</label>
+      <label className="input-default-label">{label}{star}</label>
       <input type={type} className={styles} placeholder={placeholder} />
-      {/* <p className="input-errorText hidden">Введите корректные данные</p>   */}
+       <p className="input-errorText hidden">{errorText}</p>  
     </>
   );
 }

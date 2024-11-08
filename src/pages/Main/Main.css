@@ -1,4 +1,4 @@
-/*блок hero*/
+
 .big {
   font-size: 55px;
   line-height: 62px;
@@ -14,7 +14,6 @@
   padding: 60px 40px 0 0;
 }
 
-/*блок ПОЧЕМУ ИМЕННО МЫ*/
 .blockImage {
   padding-top:50px
 }
