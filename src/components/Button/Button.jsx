@@ -7,18 +7,18 @@ function Button({type, label, style}) {
   }
 
   switch (type) {
-    case "auth": console.log("auth")
+    case "auth": /*console.log("auth")*/
       break
-    case "tariff": console.log("tariff")
+    case "tariff": /*console.log("tariff")*/
       break
-    case "logout": console.log("logout")
+    case "logout": /*console.log("logout")*/
       break
-    default: console.log("default")
+    default: /*console.log("default")*/
       break
   }
     
   return (
-    <button className={styles} onClick={console.log(0)}>
+    <button className={styles}>
           {label}         
     </button> 
   )

@@ -1,5 +1,6 @@
 import "./Results.css";
 
+import Button from '@/components/Button/Button'
 import Header from "@/layouts/Header/Header";
 import Footer from "@/layouts/Footer/Footer";
 import Table from "@/layouts/Table/Table";
@@ -36,7 +37,10 @@ function Results() {
           <Table />
           <h2 className="results__header">Список документов</h2>
           <Document />
-        </div>
+          <div className="results__more">
+            <Button type="request" label="Показать больше"/>
+            </div>          
+        </div>        
       </main>
       <Footer />
     </>

@@ -1,8 +1,10 @@
 .documents {
-    margin: 50px 0 30px 0;
+    margin: 50px 0 0px 0;
+    flex-wrap: wrap;
 }
 
 .documents__card {
+    margin-bottom: 40px;
     box-shadow: 0px 0px 12px 0px #00000033;
     width: 48.5%;
     border-radius: 10px;
