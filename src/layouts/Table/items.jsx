@@ -46,6 +46,36 @@ const _items = [
         date: '10.09.2021',
         total: '5',
         risks: '0',
+    },
+    {
+        id: '8',
+        date: '10.09.2021',
+        total: '5',
+        risks: '0',
+    },
+    {
+        id: '9',
+        date: '10.09.2021',
+        total: '5',
+        risks: '0',
+    },
+    {
+        id: '10',
+        date: '10.09.2021',
+        total: '5',
+        risks: '0',
+    },
+    {
+        id: '11',
+        date: '10.09.2021',
+        total: '5',
+        risks: '0',
+    },
+    {
+        id: '12',
+        date: '10.09.2021',
+        total: '5',
+        risks: '0',
     }
    
 ];
