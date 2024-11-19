@@ -6,7 +6,7 @@ function Footer() {
 
   return (
     <footer id="app-footer" className='footer'>
-      <div className='container flex flex-btw'>
+      <div className='container flex flex-btw footer__block'>
         <div className='logo'>
           <a href="/">
             <img src={logo} className="logo__img" alt="СКАН" />

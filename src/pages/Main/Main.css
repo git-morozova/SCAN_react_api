@@ -3,6 +3,7 @@
   font-size: 55px;
   line-height: 62px;
 }
+
 .heroHeader {
   width: 57%;
 }
@@ -19,4 +20,7 @@
 }
 .blockHeader {
   padding-top:100px
+}
+.blockImageMob {
+  display: none;
 }

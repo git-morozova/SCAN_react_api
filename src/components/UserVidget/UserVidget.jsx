@@ -8,7 +8,7 @@ function UserVidget() {
      
   return (
     <>
-    {/* <div id="app-header-auth" className='auth flex'>
+ {/* <div id="app-header-auth" className='auth flex'>
             <div className='auth__reg'>
                 <a className='grey' href="/">Зарегистрироваться</a>
             </div>
@@ -16,12 +16,12 @@ function UserVidget() {
             <div className='auth__btn'>
                 <Button type="auth" label="Войти" style="btn-small"/>
             </div>
-        </div>    
-      */}
-     <div id="app-header-user" className='user flex flex-btw'>
-          <div className='counters flex'>
+        </div>      */}
+   
+  <div id="app-header-user" className='user flex flex-btw'>
+          <div className='counters flex'> 
             {/* <img src={spinner} className="counters__img" alt="загрузка..." /> */}
-            <div className='flex'>
+            <div className='flex counters__inner'>
                 <div className='counters__text'>
                     Использовано компаний 
                 </div>
@@ -29,7 +29,7 @@ function UserVidget() {
                     34
                 </div>                
             </div>
-            <div className='flex'>
+            <div className='flex counters__inner'>
                 <div className='counters__text'>
                     Лимит по компаниям
                 </div>
@@ -51,8 +51,6 @@ function UserVidget() {
             </div>            
           </div>
         </div>  
-     
-
 
     </>
   )

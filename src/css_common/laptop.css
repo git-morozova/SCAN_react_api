@@ -1,0 +1,26 @@
+@media (max-width: 1299px) {
+    .big {
+        font-size: 45px;
+        line-height: 52px;
+    }
+    .carousel__container {
+         width: 100%;
+    }
+    .tariffs {
+        flex-direction: column;
+        margin: 50px 0 10px 0;
+    }
+    .tariffs__card {
+        margin-bottom: 40px;
+    }
+    .tariffs__middle {
+        height: 100%;
+        padding-top:23px;
+    }
+    .tariffs__current, .tariffs__inactive {
+        display: none;
+    }
+    .carousel__wrap {
+        width: calc(100% - 50px);
+    }
+  }

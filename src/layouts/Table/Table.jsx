@@ -3,7 +3,10 @@ import arrow from '@img/icons/table_arrow.png';
 import arrowDark from '@img/icons/table_arrow-dark.png';
 import _items from "./items";
 
-let itemsCount = _items.length; //число столбцов в таблице = число элементов в массиве
+import spinner from '@img/icons/spinner_big.png'
+
+//let itemsCount = _items.length; //число столбцов в таблице = число элементов в массиве
+let itemsCount = 1; // загрузка со спиннером - один столбец
 let itemsCountCols = {gridTemplateColumns: `110px repeat(` + itemsCount + `, 1fr)`}; //запишем число столбцов в grid
 
 function scroll(event,direction) {
@@ -60,7 +63,14 @@ function Table() {
                         </tr>
                     </thead>
                     <tbody> 
-                        {_items.map((item) => { 
+                        <tr>
+                            <td className="table__loader">
+                                <img src={spinner} className="table__spinner" alt="загрузка..." /> 
+                                <div>Загружаем данные</div>
+                            </td> 
+                        </tr>      
+
+                        {/* {_items.map((item) => { 
                         return (
                             <tr key={item.id}>
                                 <td>{item.date}</td> 
@@ -68,7 +78,7 @@ function Table() {
                                 <td>{item.risks}</td> 
                             </tr>        
                         );
-                        })}
+                        })} */}
                     </tbody>
                 </table>
                 
