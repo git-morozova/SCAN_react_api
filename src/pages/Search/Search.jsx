@@ -14,8 +14,8 @@ function Search() {
     <>
       <Header />
       <main className="main"> 
-        <div className="container"> 
 
+        <div className="container"> 
           <div className="search__top">   
             <div className="search__title">   
                 <h1>Найдите необходимые данные в&nbsp;пару кликов</h1> 
@@ -29,13 +29,13 @@ function Search() {
                 <img src={folders} alt="folders" className="search__img-folders"/>
             </div>           
           </div> 
+        </div> 
+        
+        <div className="search__formBlock">   
+          <SearchForm />
+          <img src={heroImage} alt="heroImage" className="search__img-hero"/>          
+        </div>
 
-          <div className="search__formBlock">   
-            <SearchForm />
-            <img src={heroImage} alt="heroImage" className="search__img-hero"/>          
-          </div>
-
-        </div>       
       </main>
       <Footer />
     </>

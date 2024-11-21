@@ -20,7 +20,8 @@ const Document = () => {
 
             <h3 className="documents__title">{item.title}</h3>
             <div><p className="documents__badge">{item.badge}</p></div>
-            <img src={item.image} alt="article" className="stretch" />
+            <img src={item.image} alt="article" className="stretch documents__img" />
+            
 
             <div className="documents__text grey">{text}</div>
 

@@ -17,10 +17,8 @@ function AuthForm() {
         </div>
 
         <div className="authForm__main grey stretch">
-          <p className="authForm__main-label">Логин или номер телефона:</p>
-          <Input type="text" />
-          <p className="authForm__main-label">Пароль:</p>
-          <Input type="password" />
+          <Input style="input-auth" type="text" label="Логин или номер телефона:"/>
+          <Input style="input-auth" type="password" label="Пароль:" />
         </div>
 
         <Button

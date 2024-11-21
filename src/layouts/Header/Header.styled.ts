@@ -12,7 +12,7 @@ export const StyledMenu = styled.nav<{ open: boolean }>`
   width: 100%;
   position: fixed;
   background-color: ${colors.main};
-  z-index: 1;
+  z-index: 20;
 
   display: flex;
   flex-direction: column;

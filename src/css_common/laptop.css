@@ -23,4 +23,28 @@
     .carousel__wrap {
         width: calc(100% - 50px);
     }
+    .search__formBlock {
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .search__img-hero {
+        padding-top: 10px;
+        margin: 0 0 0 auto;
+    }
+    .search__img-sheet {
+        padding-right: 20px;
+    }
+    .results__img {
+        max-width: 400px;
+        margin-right: 0;
+    }
+    .results__text {
+        padding-bottom: 30px;
+    }
+    .results__title {
+        margin: 20px 40px 0 0;
+    }
+    .documents__btn {
+        max-width: 194px !important;
+    }
   }

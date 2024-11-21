@@ -12,7 +12,7 @@ function Auth() {
     <>
       <Header />
       <main className="main"> 
-        <div className="container flex">  
+        <div className="container flex auth__page">  
           <div className="auth__title">   
             <h1>Для оформления подписки на&nbsp;тариф необходимо авторизоваться</h1> 
             <div className="auth__imgBlock">
@@ -23,6 +23,9 @@ function Auth() {
             <img src={lock} alt="lock" className="auth__lock"/>
             <AuthForm />
           </div>
+          <div className="auth__imgBlock-mob">
+                <img src={heroImage} alt="heroImage" className="auth__img"/>
+            </div>
         </div>       
       </main>
       <Footer />

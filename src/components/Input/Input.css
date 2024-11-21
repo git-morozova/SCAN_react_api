@@ -5,6 +5,7 @@
   border: 1.5px solid var(--grey-light);
   padding: 0 15px;
 }
+
 .input-default:focus {
   border: 1.5px solid var(--main);
 }
@@ -29,4 +30,10 @@
   padding: 30px 0 15px 0;
   font-size: 16px;
   display: block;
+}
+.input-auth {
+  width: 100%;
+}
+.input-auth-label {
+  padding: 20px 0 15px 0;
 }

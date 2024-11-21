@@ -13,8 +13,10 @@
 .search__formBlock {
     display: flex;
     align-items: flex-end;
-    margin-bottom: 50px;
-    gap:80px
+    gap:80px;
+    max-width: 1320px;
+    margin: 0 auto 50px auto;
+    padding: 0 40px;
 }
 .search__icons {
     display: flex;

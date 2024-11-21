@@ -1,7 +1,7 @@
 import "./Input.css";
 
 function Input({ type, style, placeholder, label, required }) {
-  let styles;
+  let styles = `input-default`;
   if (style) {
     styles = `input-default ` + style;
   }

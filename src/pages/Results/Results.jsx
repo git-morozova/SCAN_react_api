@@ -18,12 +18,11 @@ function Results() {
             <div className="results__title">
               <h1>
                 Ищем. Скоро
-                <br />
+                
                 будут результаты
               </h1>
               <p className="results__text">
                 Поиск может занять некоторое время,
-                <br />
                 просим сохранять терпение.
               </p>
             </div>

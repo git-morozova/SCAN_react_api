@@ -27,7 +27,7 @@ margin-right: 15px;
   border: none;
   cursor: pointer;
   outline: none;
-  z-index: 1;
+  z-index: 20;
 
   div {
     position: relative;
