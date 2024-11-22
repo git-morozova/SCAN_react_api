@@ -8,7 +8,7 @@ function Input({ type, style, placeholder, label, required }) {
   let star = "";
   if (required) {
     star = `\u00a0*`;
-  }  
+  }
 
   let errorText = "";
   switch (label) {
@@ -24,9 +24,12 @@ function Input({ type, style, placeholder, label, required }) {
 
   return (
     <>
-      <label className="input-default-label">{label}{star}</label>
+      <label className="input-default-label">
+        {label}
+        {star}
+      </label>
       <input type={type} className={styles} placeholder={placeholder} />
-       <p className="input-errorText hidden">{errorText}</p>  
+      <p className="input-errorText hidden">{errorText}</p>
     </>
   );
 }

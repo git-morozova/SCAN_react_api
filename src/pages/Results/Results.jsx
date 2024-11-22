@@ -1,6 +1,6 @@
 import "./Results.css";
 
-import Button from '@/components/Button/Button'
+import Button from "@/components/Button/Button";
 import Header from "@/layouts/Header/Header";
 import Footer from "@/layouts/Footer/Footer";
 import Table from "@/layouts/Table/Table";
@@ -16,14 +16,9 @@ function Results() {
         <div className="container">
           <div className="results__top">
             <div className="results__title">
-              <h1>
-                Ищем. Скоро
-                
-                будут результаты
-              </h1>
+              <h1>Ищем. Скоро будут результаты</h1>
               <p className="results__text">
-                Поиск может занять некоторое время,
-                просим сохранять терпение.
+                Поиск может занять некоторое время, просим сохранять терпение.
               </p>
             </div>
             <img src={heroImage} alt="heroImage" className="results__img" />
@@ -37,9 +32,9 @@ function Results() {
           <h2 className="results__header">Список документов</h2>
           <Document />
           <div className="results__more">
-            <Button type="request" label="Показать больше"/>
-            </div>          
-        </div>        
+            <Button type="request" label="Показать больше" />
+          </div>
+        </div>
       </main>
       <Footer />
     </>

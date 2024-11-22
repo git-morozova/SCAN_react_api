@@ -1,19 +1,45 @@
 .auth__title {
-    width:55%;
-    padding-top:50px;
-    padding-right: 20px;
+  width: 55%;
+  padding-top: 50px;
+  padding-right: 20px;
 }
 .auth__imgBlock {
-    margin: 20px 0 100px 100px;
+  margin: 20px 0 100px 100px;
 }
 
 .auth__formBlock {
-    width:45%;
-    position:relative;
+  width: 45%;
+  position: relative;
 }
 .auth__lock {
-    position:absolute;
-    top:0;
-    left:0;
-    z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+@media (max-width: 786px) {
+  .auth__title {
+    width: 100%;
+    padding-top: 50px;
+    padding-right: 0;
+    padding-bottom: 50px;
+  }
+  .auth__imgBlock {
+    display: none;
+  }
+  .auth__formBlock {
+    width: 100%;
+    padding-top: 20px;
+  }
+  .auth__lock {
+    left: 85px;
+  }
+  .auth__page {
+    flex-direction: column;
+    padding-bottom: 100px;
+  }
+  .auth__imgBlock-mob {
+    display: block;
+  }
 }

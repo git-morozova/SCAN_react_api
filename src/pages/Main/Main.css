@@ -1,9 +1,7 @@
-
 .big {
   font-size: 55px;
   line-height: 62px;
 }
-
 .heroHeader {
   width: 57%;
 }
@@ -14,13 +12,49 @@
   width: 43%;
   padding: 60px 40px 0 0;
 }
-
 .blockImage {
-  padding-top:50px
+  padding-top: 50px;
 }
 .blockHeader {
-  padding-top:100px
+  padding-top: 100px;
 }
 .blockImageMob {
   display: none;
+}
+
+@media (max-width: 1299px) {
+  .big {
+    font-size: 45px;
+    line-height: 52px;
+  }
+}
+
+@media (max-width: 786px) {
+  .big {
+    font-size: 28px;
+    line-height: 33px;
+  }
+  .blockHeader {
+    padding-top: 60px;
+  }
+  .heroMain {
+    flex-direction: column;
+  }
+  .heroHeader {
+    width: 100%;
+    padding-top: 30px;
+  }
+  .heroImage {
+    width: 100%;
+    padding: 60px 0 0 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .blockImage {
+    display: none;
+  }
+  .blockImageMob {
+    display: block;
+  }
 }

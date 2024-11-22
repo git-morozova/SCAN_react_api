@@ -8,7 +8,11 @@ const Document = () => {
       {_items.map((item) => {
         let text = [];
         item.text.forEach((item, index) => {
-          text.push(<p key={index} className="documents__p">{item}</p>);
+          text.push(
+            <p key={index} className="documents__p">
+              {item}
+            </p>
+          );
         });
 
         return (
@@ -19,9 +23,14 @@ const Document = () => {
             </div>
 
             <h3 className="documents__title">{item.title}</h3>
-            <div><p className="documents__badge">{item.badge}</p></div>
-            <img src={item.image} alt="article" className="stretch documents__img" />
-            
+            <div>
+              <p className="documents__badge">{item.badge}</p>
+            </div>
+            <img
+              src={item.image}
+              alt="article"
+              className="stretch documents__img"
+            />
 
             <div className="documents__text grey">{text}</div>
 

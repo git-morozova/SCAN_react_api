@@ -1,54 +1,92 @@
 /* шрифты */
 @font-face {
-	font-family: 'Ferry'; 
-	src: url(/src/assets/fonts/ferry_black.otf); 
+  font-family: "Ferry";
+  src: url(/src/assets/fonts/ferry_black.otf);
 }
 
 @font-face {
-	font-family: 'Inter'; 
-	src: url(/src/assets/fonts/Inter-Regular.otf); 
+  font-family: "Inter";
+  src: url(/src/assets/fonts/Inter-Regular.otf);
 }
 
 @font-face {
-	font-family: 'Inter medium'; 
-	src: url(/src/assets/fonts/Inter-Medium.otf); 
+  font-family: "Inter medium";
+  src: url(/src/assets/fonts/Inter-Medium.otf);
 }
 
 /* обнуление стилей браузера */
 /*! minireset.css v0.0.3 | MIT License | github.com/jgthms/minireset.css */
-html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6 {
-  margin: 0;  
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
   padding: 0;
 }
-h1,h2,h3,h4,h5,h6 {
-  font-size: 100%;  
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
   font-weight: normal;
-} 
+}
 ul {
   list-style: none;
-} 
-button,input,select,textarea {
+}
+button,
+input,
+select,
+textarea {
   margin: 0;
-} 
+}
 html {
   box-sizing: border-box;
-} 
-*, *:before, *:after { 
+}
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
-img,embed,iframe,object,audio,video {
-  height: auto;  
+img,
+embed,
+iframe,
+object,
+audio,
+video {
+  height: auto;
   max-width: 100%;
-} 
+}
 iframe {
   border: 0;
-} 
+}
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-td,th {
-  padding: 0;  
+td,
+th {
+  padding: 0;
   text-align: left;
 }
 a {
@@ -56,7 +94,8 @@ a {
   color: var(--black);
   cursor: pointer;
 }
-textarea:focus, input:focus{
+textarea:focus,
+input:focus {
   outline: none;
 }
 
@@ -67,34 +106,31 @@ textarea:focus, input:focus{
   font-size: 16px;
   color: var(--black);
   background-color: var(--white);
-  
+
   /* переменные */
   --black: #000000;
   --white: #ffffff;
   --main: #029491;
-  --main-light: #7CE3E1;
-  --dop-bright: #FFB64F;
-  --dop-dark: #5970FF;
+  --main-light: #7ce3e1;
+  --dop-bright: #ffb64f;
+  --dop-dark: #5970ff;
   --grey: #989898;
-  --grey-light: #C7C7C7;
-  --badge: #3BA5E0;
-  --red: #FF5959;
+  --grey-light: #c7c7c7;
+  --badge: #3ba5e0;
+  --red: #ff5959;
 }
-
 h1 {
   font-family: Ferry, Arial, sans-serif;
   font-size: 36px;
   line-height: 42px;
   text-transform: uppercase;
 }
-
 h2 {
   font-family: Ferry, Arial, sans-serif;
   font-size: 42px;
   line-height: 50px;
   text-transform: uppercase;
 }
-
 h3 {
   font-family: Inter medium, Arial, sans-serif;
   font-size: 27px;
@@ -106,34 +142,30 @@ h4 {
   font-size: 18px;
   padding-bottom: 5px;
 }
-
 .container {
   max-width: 1320px;
   margin: 0 auto;
   padding: 0 40px;
 }
-
 a:hover {
   color: var(--main);
 }
-
 .flex {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 .flex-btw {
-  justify-content: space-between; 
+  justify-content: space-between;
 }
-
 .grey {
-  color: var(--grey); 
+  color: var(--grey);
 }
 .red {
-  color: var(--red); 
+  color: var(--red);
 }
 .stretch {
   width: 100%;
-  max-width:none
+  max-width: none;
 }
 .wrapper {
   display: flex;
@@ -146,7 +178,6 @@ body {
 .main {
   flex: 1 0 auto;
 }
-
 .hidden {
   display: none !important;
 }
@@ -159,27 +190,28 @@ body {
   box-shadow: 0px 0px 20px 0px #0000000d;
   border: 1.5px solid var(--grey-light);
   padding: 0 15px;
-  
+
   /*стрелка*/
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: transparent;  
+  background: transparent;
   background-image: url("/src/assets/img/icons/arrow_down.svg");
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: 15px;
-
 }
 .select:focus {
   border: 1.5px solid var(--main);
   outline: 0;
 }
-
 .select-label {
   padding: 30px 0 15px 0;
   font-size: 16px;
   display: block;
 }
-.auth__imgBlock-mob, .table__btn-mob--next, .table__btn-mob--prev, .table__row-mob {
+.auth__imgBlock-mob,
+.table__btn-mob--next,
+.table__btn-mob--prev,
+.table__row-mob {
   display: none;
 }

@@ -12,20 +12,17 @@ $slide-width: 400px;
     left: 50%;
     transform: translateX(-50%);
 }
-
 .carousel__inner {
     height: 200px;
     position: relative;
     width: calc(#{$slide-width * 3});
 }
-
 .carousel__container {
     height: 230px;
     position: relative;
     width: 1200px;
     overflow: hidden;
 }
-
 .carousel__slide-list {
     height: 100%;
     left: 50%;
@@ -36,7 +33,6 @@ $slide-width: 400px;
     transform: translateX(-50%);
     width: calc(#{($slide-count + 0.5) * $slide-width * 2});
 }
-
 .carousel__slide-item {
     display: inline-block;
     height: $slide-width;
@@ -45,14 +41,12 @@ $slide-width: 400px;
     transition: all 0.3s;
     width: $slide-width;
 }
-
 .carousel-slide-item__body {
     position: absolute;
     border-radius: 10px;
     margin: 0 12px;
     box-shadow: 0px 0px 12px 0px #00000033;
 }
-
 .carousel__slide-item-img {
     display: flex;
     height: 50px;
@@ -61,14 +55,12 @@ $slide-width: 400px;
     width: 50px;
     margin: 30px 20px 0 20px;
 }
-
 .carousel__slide-item-p {
     padding: 20px 50px 20px 20px;
     height: 115px;
     width: 100%;
     margin: 0;
 }
-
 .carousel__btn {
     align-items: center;
     background: 0;
@@ -93,8 +85,48 @@ $slide-width: 400px;
 .carousel__btn-arrow {
     padding: 3px;
     z-index: 10;
-
     &--right {
         transform: rotate(180deg);
     }
+}
+
+@media (max-width: 1299px) {      
+    .carousel__container {
+         width: 100%;
+    }
+    .carousel__wrap {
+        width: calc(100% - 50px);
+    }
+}
+@media (max-width: 786px) {   
+  .carousel-slide-item__body {
+    margin: 0 30px;
+  }
+}
+@media (max-width: 380px) {
+  .carousel__slide-list {
+    left: 67%;
+  }
+  .carousel__slide-item, .carousel__container, .carousel__inner  {
+      width: 300px;
+  }
+  .carousel__inner {
+    height: 280px;
+  }
+  .carousel__container {
+    height: 280px;
+  }
+  .carousel__btn {
+    top: 40%;
+  }
+  .carousel__wrap {
+    margin-top: 20px;
+  }
+  .carousel__slide-item-p {
+    padding: 20px 20px 20px 20px;
+    height: auto;
+  }
+  .carousel-slide-item__body {
+    margin: 0 12px;
+  }
 }

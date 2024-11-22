@@ -10,14 +10,17 @@ function AuthForm() {
   return (
     <form id="app-auth-form" className="auth__form">
       <div className="flex authForm__block">
-        
         <div className="flex authForm__top stretch">
           <a className="authForm__top-enter">Войти</a>
           <a className="authForm__top-reg">Зарегистрироваться</a>
         </div>
 
         <div className="authForm__main grey stretch">
-          <Input style="input-auth" type="text" label="Логин или номер телефона:"/>
+          <Input
+            style="input-auth"
+            type="text"
+            label="Логин или номер телефона:"
+          />
           <Input style="input-auth" type="password" label="Пароль:" />
         </div>
 
@@ -48,7 +51,6 @@ function AuthForm() {
             </a>
           </div>
         </div>
-
       </div>
     </form>
   );

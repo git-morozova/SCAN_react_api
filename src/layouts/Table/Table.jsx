@@ -7,7 +7,9 @@ import spinner from "@img/icons/spinner_big.png";
 
 let itemsCount = _items.length; //число столбцов в таблице = число элементов в массиве
 //let itemsCount = 1; // загрузка со спиннером - один столбец
-let itemsCountCols = {  gridTemplateColumns: `110px repeat(` + itemsCount + `, 1fr)`,}; //запишем число столбцов в grid
+let itemsCountCols = {
+  gridTemplateColumns: `110px repeat(` + itemsCount + `, 1fr)`,
+}; //запишем число столбцов в grid
 
 //скролл таблицы - десктоп
 function scroll(event, direction) {
@@ -48,33 +50,32 @@ function scrollMob(event, direction) {
   if (direction == "left") {
     let prevId;
     if (Number(partsArray[1]) == 0) {
-        prevId = all.length;
-        arrowLeft.src = arrow;
+      prevId = all.length;
+      arrowLeft.src = arrow;
     } else {
-        prevId = Number(partsArray[1]) - 1;
-        let prevIdSelector = `#row-mob_` + prevId;
-        let prevTr = document.querySelector(prevIdSelector);
-        prevTr.className = "table__row-mob";
-        current.className = "table__row-mob hidden";
-        arrowRight.src = arrowDark;
-    }    
+      prevId = Number(partsArray[1]) - 1;
+      let prevIdSelector = `#row-mob_` + prevId;
+      let prevTr = document.querySelector(prevIdSelector);
+      prevTr.className = "table__row-mob";
+      current.className = "table__row-mob hidden";
+      arrowRight.src = arrowDark;
+    }
   }
-  
+
   if (direction == "right") {
     let nextId;
     if (Number(partsArray[1]) == all.length) {
-        nextId = all.length;
-        arrowRight.src = arrow;
+      nextId = all.length;
+      arrowRight.src = arrow;
     } else {
-        nextId = Number(partsArray[1]) + 1;
-        let nextIdSelector = `#row-mob_` + nextId;
-        let nextTr = document.querySelector(nextIdSelector);
-        nextTr.className = "table__row-mob";
-        current.className = "table__row-mob hidden";
-        arrowLeft.src = arrowDark;
+      nextId = Number(partsArray[1]) + 1;
+      let nextIdSelector = `#row-mob_` + nextId;
+      let nextTr = document.querySelector(nextIdSelector);
+      nextTr.className = "table__row-mob";
+      current.className = "table__row-mob hidden";
+      arrowLeft.src = arrowDark;
     }
-  } 
-
+  }
 }
 
 function Table() {
@@ -90,7 +91,7 @@ function Table() {
     }
 
     //МОБ - правая стрелка подсвечивается, если число элементов массива больше одного
-    if(itemsCount > 1) {
+    if (itemsCount > 1) {
       arrowRightMob.src = arrowDark;
     }
 
@@ -150,7 +151,7 @@ function Table() {
               let id = "row_" + item.id;
               let idMob = "row-mob_" + item.id;
               return (
-                <tbody key={item.id}>      
+                <tbody key={item.id}>
                   <tr className="table__row-mob hidden" id={idMob}>
                     <td>{item.date}</td>
                     <td>{item.total}</td>
@@ -160,7 +161,7 @@ function Table() {
                     <td>{item.date}</td>
                     <td>{item.total}</td>
                     <td>{item.risks}</td>
-                  </tr>  
+                  </tr>
                 </tbody>
               );
             })}

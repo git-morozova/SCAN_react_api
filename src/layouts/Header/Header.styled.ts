@@ -1,9 +1,9 @@
 import styled from "styled-components";
 export const colors = {
-    bright: "#FFB64F",
-    main: "#029491",
-    white: "#ffffff"
-  };
+  bright: "#FFB64F",
+  main: "#029491",
+  white: "#ffffff"
+};
 
 export const StyledMenu = styled.nav<{ open: boolean }>`
   top: 0;

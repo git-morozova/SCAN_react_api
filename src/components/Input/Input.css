@@ -37,3 +37,12 @@
 .input-auth-label {
   padding: 20px 0 15px 0;
 }
+@media (max-width: 786px) {
+  .input-default-label,
+  .select-label {
+    font-size: 18px;
+  }
+  .input-errorText {
+    max-width: unset;
+  }
+}
