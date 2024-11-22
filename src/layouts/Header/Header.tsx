@@ -3,6 +3,7 @@ import UserVidget from '@/components/UserVidget/UserVidget'
 import logo from '@img/logo.png'
 import logo_inv from '@img/logo_inv.png'
 
+import { Link } from "react-router-dom";
 import React, { useState, useRef } from "react";
 import { useMediaQuery } from 'react-responsive'
 import { StyledMenu, StyledLink } from "./Header.styled";
@@ -22,17 +23,17 @@ function Header() {
   <header id="app-header" className='header'>
     <div className='container flex flex-btw' >
         <div className='logo'>
-          <a href="/">
+          <Link to="/">
             <img src={logo} className="logo__img" alt="СКАН"/>
-          </a>
+          </Link>
         </div>
       {isDesktop ?  (
         <>
           <div>
             <ul className='menu flex'>
-                <li><a href="/">Главная</a></li>
-                <li><a href="/">Тарифы</a></li>
-                <li><a href="/">FAQ</a></li>
+                <li><Link to="/">Главная</Link></li>
+                <li><Link to="#">Тарифы</Link></li>
+                <li><Link to="#">FAQ</Link></li>
               </ul>       
           </div> 
           <UserVidget/>
@@ -44,19 +45,21 @@ function Header() {
           <div ref={node}>
             <StyledMenu open={open}>          
               <div className='logo'>
-                <a href="/">
+                <Link to="/">
                   <img src={logo_inv} className="logo__img" alt="СКАН"/>
-                </a>
+                </Link>
               </div>
               <div className='menu__mobLinks flex'>
-                <StyledLink onClick={() => close()}>Главная</StyledLink>
-                <StyledLink onClick={() => close()}>Тарифы</StyledLink>
-                <StyledLink onClick={() => close()}>FAQ</StyledLink>
+                <Link to="/" onClick={() => close()}>Главная</Link>
+                <Link to="#" onClick={() => close()}>Тарифы</Link>
+                <Link to="#" onClick={() => close()}>FAQ</Link>
               </div>
               <div className='menu__mobReg flex'>                
                 <a className='auth__reg-burger' onClick={() => close()}>Зарегистрироваться</a>
               </div>
-              <Button onClick={() => close()} type="auth" label="Войти" style="btn-small auth__reg-btn"/>
+              <Link to="/auth" >
+                <Button onClick={() => close()} type="auth" label="Войти" style="btn-small auth__reg-btn"/>
+              </Link> 
             </StyledMenu>
             <BurgerMenu open={open} setOpen={setOpen} /> 
           </div>

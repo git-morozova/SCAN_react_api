@@ -3,24 +3,28 @@ import Button from "@/components/Button/Button";
 import authLine from "@img/icons/auth_line.svg";
 import spinner from "@img/icons/spinner.png";
 import avatar from "@img/avatar.png";
+import { Link } from "react-router-dom";
 
 function UserVidget() {
   return (
-    <>
-      {/* <div id="app-header-auth" className='auth flex'>
+    <>      
+       <div id="app-header-auth" className='auth flex'>
             <div className='auth__reg'>
                 <a className='grey' href="/">Зарегистрироваться</a>
             </div>
             <img src={authLine} className="auth__line" alt="|" />
             <div className='auth__btn'>
+              <Link to="/auth">
                 <Button type="auth" label="Войти" style="btn-small"/>
+              </Link>             
             </div>
-        </div>      */}
+        </div> 
 
-      <div id="app-header-user" className="user flex flex-btw">
-        <div className="counters flex">
+      
+      {/* <div id="app-header-user" className="user flex flex-btw">
+        <div className="counters flex"> */}
           {/* <img src={spinner} className="counters__img" alt="загрузка..." /> */}
-          <div className="flex counters__inner">
+          {/* <div className="flex counters__inner">
             <div className="counters__text">Использовано компаний</div>
             <div className="counters__sum">34</div>
           </div>
@@ -38,9 +42,10 @@ function UserVidget() {
             <img src={avatar} className="avatar__img" alt="avatar" />
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
+
 
 export default UserVidget;

@@ -10,6 +10,7 @@
   background-color: var(--dop-dark);
   color: var(--white);
   transition: background-color 0.35s;
+  text-align: center;
 }
 .btn:hover {
   background-color: var(--main);

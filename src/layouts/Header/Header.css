@@ -60,7 +60,7 @@
     align-items: center;
   }
   .auth {
-    display: none;
+    display: none !important;
   }
 }
 @media (max-width: 380px) {

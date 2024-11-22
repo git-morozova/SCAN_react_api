@@ -1,14 +1,15 @@
 import "./Footer.css";
 import logo from "@img/logo_inv.png";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <footer id="app-footer" className="footer">
       <div className="container flex flex-btw footer__block">
         <div className="logo">
-          <a href="/">
+          <Link to="/">
             <img src={logo} className="logo__img" alt="СКАН" />
-          </a>
+          </Link> 
         </div>
         <div className="footer__text flex">
           <p>

@@ -8,6 +8,7 @@ import Tariff from "@/layouts/Tariff/Tariff";
 import heroImage from "@img/hero.jpg";
 import blockImage from "@img/main_block2.jpg";
 import blockImageMob from "@img/main_block2_mob.jpg";
+import { Link } from "react-router-dom";
 
 function Main() {
   return (
@@ -24,7 +25,9 @@ function Main() {
               Комплексный анализ публикаций, получение данных
               в&nbsp;формате&nbsp;PDF на&nbsp;электронную почту.
             </p>
-            <Button type="request" label="Запросить данные" />
+            <Link to="/search">
+              <Button type="request" label="Запросить данные" />
+            </Link>
           </div>
           <div className="heroImage">
             <img src={heroImage} alt="heroImage" />
