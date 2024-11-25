@@ -2,7 +2,7 @@ import "./Auth.css";
 
 import Header from "@/layouts/Header/Header";
 import Footer from "@/layouts/Footer/Footer";
-import AuthForm from "@/layouts/AuthForm/AuthForm";
+import AuthForm from "@/layouts/AuthForm/AuthForm.tsx";
 import heroImage from "@img/auth_hero.png";
 import lock from "@img/icons/auth_lock.svg";
 

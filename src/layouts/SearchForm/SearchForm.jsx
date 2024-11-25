@@ -1,6 +1,6 @@
 import "./SearchForm.css";
 import Button from "@/components/Button/Button";
-import Input from "@/components/Input/Input";
+import Input from "@/components/Input/Input.tsx";
 import Checkbox from "@/components/Checkbox/Checkbox";
 import Select from "@/components/Select/Select";
 import Range from "@/components/Range/Range";

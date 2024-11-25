@@ -1,23 +1,28 @@
 import "./Button.css";
+import { Context } from "@/app";
+import React, {FC, useContext, useState} from "react";
 
-function Button({ type, label, style }) {
+
+function Button({ label, style, content}) {
+  const {store} = useContext(Context);
+
   let styles = `btn`;
   if (style) {
     styles = `btn ` + style;
   }
+  
+  const submitFunction = () => {
+    
+    if (content=="login") {
+    store.login(document.querySelector("#app-input-login").value, document.querySelector("#app-input-password").value);
+    } 
+  };
+  
 
-  switch (type) {
-    case "auth" /*console.log("auth")*/:
-      break;
-    case "tariff" /*console.log("tariff")*/:
-      break;
-    case "logout" /*console.log("logout")*/:
-      break;
-    default: /*console.log("default")*/
-      break;
-  }
+  return <button type="button" onClick = {submitFunction} className={styles}>{label}</button>
 
-  return <button className={styles}>{label}</button>;
+
+
 }
 
 export default Button;

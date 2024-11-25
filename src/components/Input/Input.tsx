@@ -1,6 +1,10 @@
 import "./Input.css";
+import { Context } from "@/app";
+import React, {FC, useContext, useState} from "react";
 
-function Input({ type, style, placeholder, label, required }) {
+function Input({ type, style, placeholder, label, required, id, content }) {
+
+
   let styles = `input-default`;
   if (style) {
     styles = `input-default ` + style;
@@ -22,13 +26,34 @@ function Input({ type, style, placeholder, label, required }) {
       break;
   }
 
+  let {store} = useContext(Context);
+  let inputFunction = (e) => {
+
+  };
+
+if (content=="login") {
+  let [login, setLogin] = useState<string>('');
+  
+  inputFunction = (e) => {
+    setLogin(e.target.login)
+  };
+}
+      
+if (content=="password") {
+  let [password, setPassword] = useState<string>(''); 
+    
+  inputFunction = (e) => {
+    setPassword(e.target.password)
+  };
+}
+
   return (
     <>
       <label className="input-default-label">
         {label}
         {star}
       </label>
-      <input type={type} className={styles} placeholder={placeholder} />
+      <input id={id} onChange = {(e) => inputFunction(e)} type={type} className={styles} placeholder={placeholder} />
       <p className="input-errorText hidden">{errorText}</p>
     </>
   );

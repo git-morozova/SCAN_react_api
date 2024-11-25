@@ -1,13 +1,23 @@
 import "./AuthForm.css";
 import Button from "@/components/Button/Button";
-import Input from "@/components/Input/Input";
+import Input from "@/components/Input/Input.tsx";
 
 import google from "@img/icons/google.svg";
 import facebook from "@img/icons/fb.svg";
 import yandex from "@img/icons/ya.svg";
 
-function AuthForm() {
-  return (
+import React, {FC, useContext, useState} from "react";
+
+/*
+sf_student9
+DTdEwAn
+*/
+
+const AuthForm: FC = () => {
+
+  return (    
+  <>   
+        
     <form id="app-auth-form" className="auth__form">
       <div className="flex authForm__block">
         <div className="flex authForm__top stretch">
@@ -15,17 +25,18 @@ function AuthForm() {
           <a className="authForm__top-reg">Зарегистрироваться</a>
         </div>
 
-        <div className="authForm__main grey stretch">
-          <Input
-            style="input-auth"
+         <div className="authForm__main grey stretch">
+          <Input onChange={e => setLogin(e.target.value)}
+            style="input-auth" content="login" id="app-input-login"
             type="text"
             label="Логин или номер телефона:"
           />
-          <Input style="input-auth" type="password" label="Пароль:" />
-        </div>
+          <Input onChange={e => setPassword(e.target.value)}  id="app-input-password" content="password"
+            style="input-auth" type="password" label="Пароль:" />  
+        </div> 
 
-        <Button
-          type="request"
+        <Button 
+                  type="button" content="login" 
           label="Войти"
           style="stretch authForm__submit btn-disabled"
         />
@@ -53,6 +64,7 @@ function AuthForm() {
         </div>
       </div>
     </form>
+    </>
   );
 }
 
