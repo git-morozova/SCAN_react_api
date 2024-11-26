@@ -6,7 +6,7 @@ import google from "@img/icons/google.svg";
 import facebook from "@img/icons/fb.svg";
 import yandex from "@img/icons/ya.svg";
 
-import React, {FC, useContext, useState} from "react";
+import React, {FC} from "react";
 
 /*
 sf_student9

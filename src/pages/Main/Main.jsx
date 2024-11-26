@@ -10,7 +10,12 @@ import blockImage from "@img/main_block2.jpg";
 import blockImageMob from "@img/main_block2_mob.jpg";
 import { Link } from "react-router-dom";
 
-function Main() {
+import { Context } from "@/app";
+import { useContext } from "react";
+
+function Main() {  
+  const { store } = useContext(Context);
+
   return (
     <>
       <Header />
@@ -25,9 +30,15 @@ function Main() {
               Комплексный анализ публикаций, получение данных
               в&nbsp;формате&nbsp;PDF на&nbsp;электронную почту.
             </p>
-            <Link to="/search">
-              <Button type="request" label="Запросить данные" />
-            </Link>
+            {store.checkAuth() ? (
+              <>
+                <Link to="/search">
+                  <Button type="request" label="Запросить данные" />
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="heroImage">
             <img src={heroImage} alt="heroImage" />

@@ -10,6 +10,9 @@ import { StyledMenu, StyledLink } from "./Header.styled";
 import BurgerMenu from '@/components/BurgerMenu/BurgerMenu'
 import Button from '@/components/Button/Button'
 
+import { Context } from "@/app";
+import { useContext } from "react";
+
 function Header() {
   const [open, setOpen] = useState<boolean>(false);
   const node = useRef<HTMLDivElement>(null);
@@ -18,6 +21,8 @@ function Header() {
   const isDesktop = useMediaQuery({
     query: '(min-width: 787px)'
   })
+
+  const { store } = useContext(Context);
 
   return (
   <header id="app-header" className='header'>
@@ -54,12 +59,18 @@ function Header() {
                 <Link to="#" onClick={() => close()}>Тарифы</Link>
                 <Link to="#" onClick={() => close()}>FAQ</Link>
               </div>
+              {!store.checkAuth() ? (  <>
               <div className='menu__mobReg flex'>                
                 <a className='auth__reg-burger' onClick={() => close()}>Зарегистрироваться</a>
               </div>
               <Link to="/auth" >
-                <Button onClick={() => close()} type="auth" label="Войти" style="btn-small auth__reg-btn"/>
-              </Link> 
+                <Button onClick={() => close()} type="button" content="auth" label="Войти" style="btn-small auth__reg-btn"/>
+              </Link> </>
+               ) : <>               
+               <Button type="button" content="logout" label="Выйти" style="btn-small auth__reg-btn"/>
+             
+             </>
+             }
             </StyledMenu>
             <BurgerMenu open={open} setOpen={setOpen} /> 
           </div>
