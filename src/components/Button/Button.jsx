@@ -19,8 +19,12 @@ function Button({ label, style, content }) {
 
     } else if (content == "logout") {
       store.logout();
+      
     }
   };
+
+
+  
 
   return (    
     <button type="button" onClick={submitFunction} className={styles}>

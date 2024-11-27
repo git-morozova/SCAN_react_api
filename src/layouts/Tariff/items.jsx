@@ -1,7 +1,7 @@
 const _items = [
     {
         id: '0',
-        tariff: 'Beginner',
+        tariff: 'beginner',
         desc: 'Для небольшого исследования',
         image: '../src/assets/img/icons/tariff_lamp.svg',
         color: '#FFB64F',
@@ -18,7 +18,7 @@ const _items = [
 
     {
         id: '1',
-        tariff: 'Pro',
+        tariff: 'pro',
         desc: "Для HR и\u00a0фрилансеров",
         image: '../src/assets/img/icons/tariff_target.svg',
         color: '#7CE3E1',
@@ -35,7 +35,7 @@ const _items = [
 
     {
         id: '2',
-        tariff: 'Business',
+        tariff: 'business',
         desc: 'Для корпоративных клиентов',
         image: '../src/assets/img/icons/tariff_laptop.svg',
         color: '#000000',

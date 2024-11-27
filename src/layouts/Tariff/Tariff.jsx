@@ -3,7 +3,13 @@ import _items from "./items";
 import Button from "@/components/Button/Button";
 import check from "@img/icons/check.svg";
 
+import { Context } from "@/app";
+import { useContext } from "react";
+
+
 const Tariff = () => {
+  const { store } = useContext(Context);
+
   return (
     <div className="flex tariffs flex-btw">
       {_items.map((item) => {
@@ -13,8 +19,7 @@ const Tariff = () => {
         let border;
         let badge = <hr className="tariffs__inactive" />;
 
-        if (item.tariff == `Beginner`) {
-          //пока делаем текущий тариф хардкодом
+        if (item.tariff == store.tariff) {
           border = `2px solid ` + item.color;
           badge = <div className="tariffs__current">Текущий тариф</div>;
           button = (

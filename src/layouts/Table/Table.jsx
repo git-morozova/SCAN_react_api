@@ -2,14 +2,11 @@ import "./Table.scss";
 import arrow from "@img/icons/table_arrow.png";
 import arrowDark from "@img/icons/table_arrow-dark.png";
 import _items from "./items";
-
+import React, { useState, useEffect } from 'react';
 import spinner from "@img/icons/spinner_big.png";
 
-let itemsCount = _items.length; //число столбцов в таблице = число элементов в массиве
-//let itemsCount = 1; // загрузка со спиннером - один столбец
-let itemsCountCols = {
-  gridTemplateColumns: `110px repeat(` + itemsCount + `, 1fr)`,
-}; //запишем число столбцов в grid
+let itemsCount;
+let itemsCountCols;
 
 //скролл таблицы - десктоп
 function scroll(event, direction) {
@@ -79,28 +76,108 @@ function scrollMob(event, direction) {
 }
 
 function Table() {
-  window.onload = function () {
-    //при загрузке страницы:
-    const tableBlocks = document.querySelector(".table__inner");
-    let arrowRight = document.querySelector("#app-arrowRight");
-    let arrowRightMob = document.querySelector("#app-arrowRight-mob");
 
-    //ДЕСКТОП - правая стрелка подсвечивается, если сумма ширин столбцов больше ширины контейнера под таблицу
-    if (itemsCount * 120 > tableBlocks.offsetWidth - 110) {
-      arrowRight.src = arrowDark;
-    }
+  //спиннер 
+  function Loader() {          
+    itemsCountCols = {
+      gridTemplateColumns: `110px repeat(1, 1fr)`, //пока рендерим спиннер - один столбец
+    };
 
-    //МОБ - правая стрелка подсвечивается, если число элементов массива больше одного
-    if (itemsCount > 1) {
-      arrowRightMob.src = arrowDark;
-    }
+    return (
+      <>     
+        <table className="table__inner" style={itemsCountCols}>
+          <thead className="table__thead">
+            <tr>
+              <th>Период</th>
+              <th>Всего</th>
+              <th>Риски</th>
+            </tr>
+          </thead>        
+          <tbody>
+            <tr>
+              <td className="table__loader">
+                <img src={spinner} className="table__spinner" alt="загрузка..." /> 
+                <div className="table__spinner-text" >Загружаем данные</div>
+              </td> 
+            </tr> 
+          </tbody> 
+        </table>            
+      </> 
+    );
+  }
 
-    //МОБ - показать первую строку таблицы
-    let firstRow = document.querySelector("#row-mob_0");
-    firstRow.className = "table__row-mob";
-  };
 
-  return (
+  //блок выводится после загрузки данных
+  function MainContent() {  
+    itemsCount = _items.length; //число столбцов в таблице = число элементов в массиве
+    itemsCountCols = {
+      gridTemplateColumns: `110px repeat(` + itemsCount + `, 1fr)`, //запишем число столбцов в grid
+    };
+
+    useEffect(() => {
+      const tableBlocks = document.querySelector(".table__inner");
+      let arrowRight = document.querySelector("#app-arrowRight");
+      let arrowRightMob = document.querySelector("#app-arrowRight-mob");
+
+      //ДЕСКТОП - правая стрелка подсвечивается, если сумма ширин столбцов больше ширины контейнера под таблицу
+      if (itemsCount * 120 > tableBlocks.offsetWidth - 110) {
+        arrowRight.src = arrowDark;
+      }
+
+      //МОБ - правая стрелка подсвечивается, если число элементов массива больше одного
+      if (itemsCount > 1) {
+        arrowRightMob.src = arrowDark;
+      }
+
+      //МОБ - показать первую строку таблицы
+      let firstRow = document.querySelector("#row-mob_0");
+      firstRow.className = "table__row-mob";
+    }, []);
+
+    return (      
+      <>   
+        <table className="table__inner" style={itemsCountCols}>
+          <thead className="table__thead">
+            <tr>
+              <th>Период</th>
+              <th>Всего</th>
+              <th>Риски</th>
+            </tr>
+          </thead>
+        
+          {_items.map((item) => {
+            let id = "row_" + item.id;
+            let idMob = "row-mob_" + item.id;
+            return (
+              <tbody key={item.id}>
+                <tr className="table__row-mob hidden" id={idMob}>
+                  <td>{item.date}</td>
+                  <td>{item.total}</td>
+                  <td>{item.risks}</td>
+                </tr>
+                <tr className="table__row" id={id}>
+                  <td>{item.date}</td>
+                  <td>{item.total}</td>
+                  <td>{item.risks}</td>
+                </tr>
+              </tbody>
+            );
+          })}     
+
+        </table>        
+      </>    
+    );
+  }
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 4000); // имитируем долгую загрузку      
+  }, []);
+
+  return ( 
     <>
       <div className="table__main">
         <button
@@ -129,43 +206,10 @@ function Table() {
             alt="<"
           />
         </button>
-        <div id="app-table" className="table__block">
-          <table className="table__inner" style={itemsCountCols}>
-            <thead className="table__thead">
-              <tr>
-                <th>Период</th>
-                <th>Всего</th>
-                <th>Риски</th>
-              </tr>
-            </thead>
-            {/* <tbody>
-                   <tr>
-                        <td className="table__loader">
-                            <img src={spinner} className="table__spinner" alt="загрузка..." /> 
-                            <div className="table__spinner-text" >Загружаем данные</div>
-                        </td> 
-                    </tr> 
-            </tbody> */}
+        <div id="app-table" className="table__block">            
+          
+            {isLoading ? <Loader /> : <MainContent />}
 
-            {_items.map((item) => {
-              let id = "row_" + item.id;
-              let idMob = "row-mob_" + item.id;
-              return (
-                <tbody key={item.id}>
-                  <tr className="table__row-mob hidden" id={idMob}>
-                    <td>{item.date}</td>
-                    <td>{item.total}</td>
-                    <td>{item.risks}</td>
-                  </tr>
-                  <tr className="table__row" id={id}>
-                    <td>{item.date}</td>
-                    <td>{item.total}</td>
-                    <td>{item.risks}</td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
         </div>
         <button
           className="table__btn table__btn-mob--next"
@@ -194,7 +238,7 @@ function Table() {
           />
         </button>
       </div>
-    </>
+    </>   
   );
 }
 

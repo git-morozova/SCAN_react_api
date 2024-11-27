@@ -15,9 +15,11 @@ interface State {store: Store}
 const store = new Store();
 export const Context = createContext<State>({store})
 
-const isAuth = localStorage.getItem("token");
-if(isAuth) {
-  store.setAuth(true);
+if(localStorage.getItem("token")) {
+  const login: string = localStorage.getItem("login")!;
+  store.setAuth(true);  
+  store.setUser(login); 
+  store.setTariff("beginner");  //задаем тариф жестко, т.к. в API нет инфы о тарифе для юзера
 }
 
 createRoot(document.getElementById("app-root")).render(
@@ -28,13 +30,15 @@ createRoot(document.getElementById("app-root")).render(
         <Routes>
           <Route exact path="/" element={<Main />} />
           {store.checkAuth() ? (
-            <Route path="/auth" element={<Main />} /> 
+            <>
+              <Route path="/auth" element={<Navigate to="/" replace />} /> 
+              <Route path="/search" element={<Search />} />
+              <Route path="/results" element={<Results />} /> 
+            </>
             ) : (
             <Route path="/auth" element={<Auth />} />
           )}
-          <Route path="/search" element={<Search />} />
-          <Route path="/results" element={<Results />} /> 
-          <Route path="*" element={<Main />} />         
+          <Route path="*" element={<Navigate to="/" replace />} />         
         </Routes>  
       </BrowserRouter>
 

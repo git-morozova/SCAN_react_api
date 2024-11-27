@@ -7,7 +7,6 @@ import facebook from "@img/icons/fb.svg";
 import yandex from "@img/icons/ya.svg";
 
 import React, {FC} from "react";
-
 /*
 sf_student9
 DTdEwAn
