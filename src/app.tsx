@@ -1,15 +1,19 @@
 import { createContext, StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { createRoot } from 'react-dom/client'
+
 
 import Main from "./pages/Main/Main";
 import Auth from "./pages/Auth/Auth";
 import Search from "./pages/Search/Search";
 import Results from "./pages/Results/Results";
 
+import React from "react";
+
 import "./css_common/desktop.css";
 import "./css_common/mobile.css";
 import Store from "./store/store";
+
 
 interface State {store: Store}
 const store = new Store();
@@ -22,7 +26,9 @@ if(localStorage.getItem("token")) {
   store.setTariff("beginner");  //задаем тариф жестко, т.к. в API нет инфы о тарифе для юзера
 }
 
-createRoot(document.getElementById("app-root")).render(
+const container = document.getElementById("app-root")!;
+
+createRoot(container).render(
     <StrictMode> 
       <Context.Provider value={{store}}>
 
@@ -31,12 +37,16 @@ createRoot(document.getElementById("app-root")).render(
           <Route exact path="/" element={<Main />} />
           {store.checkAuth() ? (
             <>
-              <Route path="/auth" element={<Navigate to="/" replace />} /> 
+              <Route path="/auth" element={<Navigate to="/" replace />}   /> 
               <Route path="/search" element={<Search />} />
               <Route path="/results" element={<Results />} /> 
             </>
             ) : (
-            <Route path="/auth" element={<Auth />} />
+            <>
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/search" element={<Navigate to="/" replace />} /> 
+              <Route path="/results" element={<Navigate to="/" replace />} /> 
+            </>
           )}
           <Route path="*" element={<Navigate to="/" replace />} />         
         </Routes>  
@@ -45,3 +55,4 @@ createRoot(document.getElementById("app-root")).render(
       </Context.Provider>
     </StrictMode>
 );
+

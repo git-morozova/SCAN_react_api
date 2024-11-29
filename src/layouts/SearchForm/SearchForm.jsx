@@ -6,6 +6,7 @@ import Select from "@/components/Select/Select";
 import Range from "@/components/Range/Range";
 
 function SearchForm() {
+ 
   return (
     <form id="app-search-form" className="search__form">
       <div className="flex searchForm__block">
@@ -17,6 +18,7 @@ function SearchForm() {
               placeholder="10 цифр"
               label="ИНН компании"
               required="true"
+              id="app-input-inn"
             />
             <Select
               style="searchForm__input"
@@ -81,6 +83,7 @@ function SearchForm() {
           <div className="searchForm__btn">
             <Button
               type="request"
+              content="request"
               label="Поиск"
               style="searchForm__submit btn-disabled"
             />
