@@ -5,10 +5,13 @@ export default class Store {
     user = "";
     tariff = "";
     isAuth = false;
+    searchResultTotalDocuments = {};
+    searchResultRiskFactors = {};
     constructor() {
         makeAutoObservable(this)
     }
 
+    //сервисы аутентификации
     setAuth(bool: boolean) {
         this.isAuth = bool;
     }
@@ -51,6 +54,7 @@ export default class Store {
         }
     }
  
+    //сервисы поиска
     async request(
         issueDateInterval: Object, 
         searchContext: Object, 
@@ -74,10 +78,17 @@ export default class Store {
                 sortDirectionType,
                 attributeFilters
             );
-            console.log(response)
+            this.saveTotalDocumentsResult(response.data.data[0].data);
+            this.saveRiskFactorsResult(response.data.data[1].data);
         } catch (e) {
             console.log(e.response?.data?.message)
         }
+    }
+    saveTotalDocumentsResult(result: Object) {
+        this.searchResultTotalDocuments = result;
+    }
+    saveRiskFactorsResult(result: Object) {
+        this.searchResultRiskFactors = result;
     }
 
 }       

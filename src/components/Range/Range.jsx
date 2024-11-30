@@ -8,11 +8,33 @@ import { ru } from "date-fns/locale/ru";
 registerLocale("ru", ru);
 
 function Range({ label, required }) {
+  //endDate
   let [endDate, setEndDate] = useState(new Date());
 
-  let currentDate = new Date();
-  let pastDate = currentDate.setDate(currentDate.getDate() - 30); //минус месяц
+  //pastDate
+  let milliseconds = new Date().getTime();
+  let pastDate = new Date(milliseconds - 31536000000);// 31536000000 миллисекунд в году
   let [startDate, setStartDate] = useState(pastDate);
+
+  let today = new Date(); //для валидации endDate
+
+
+
+
+  //decorator 
+  const checkRequiredFields = function(fn) {
+    return function(...args) {
+      if (!document.querySelector('#app-input-inn').value && !document.querySelector('#app-input-limit').value
+        && (document.querySelector('#app-range-start').value == "") && (document.querySelector('#app-range-end').value == "")) {
+          console.log("null")
+        }
+        return fn(...args);
+    }
+  }
+
+
+
+
 
   let star = "";
   if (required) {
@@ -30,23 +52,29 @@ function Range({ label, required }) {
         locale="ru"
         dateFormat="dd.MM.YYYY"
         selected={startDate}
-        onChange={(date) => setStartDate(date)}
+        onChange={checkRequiredFields((date) => setStartDate(date))}
         selectsStart
         startDate={startDate}
-        endDate={endDate}
+        maxDate={endDate}
+        id="app-range-start"
+        content="range-start"
+        required
       />
       <DatePicker
         className="select range"
         locale="ru"
         dateFormat="dd.MM.YYYY"
         selected={endDate}
-        onChange={(date) => setEndDate(date)}
+        onChange={checkRequiredFields((date) => setEndDate(date))}
         selectsEnd
-        startDate={startDate}
         endDate={endDate}
         minDate={startDate}
+        maxDate={today}
+        id="app-range-end"
+        content="range-end"
+        required
       />
-      <p className="input-errorText error-range hidden">
+      <p className="input-errorText error-range hidden" id="app-range-error">
         Введите корректные данные
       </p>
     </>

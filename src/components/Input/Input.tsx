@@ -14,21 +14,11 @@ function Input({ type, style, placeholder, label, required, id, content }) {
     star = `\u00a0*`;
   }
 
-  let errorText = "";
-  switch (label) {
-    case "ИНН компании":
-      errorText = "Введите корректные данные";
-      break;
-    case "Количество документов в выдаче":
-      errorText = "Обязательное поле";
-      break;
-    default:
-      break;
-  }
+  let errorText = "Введите корректные данные";
+  let errorId = id + "-error";  
 
-  let {store} = useContext(Context);
   let inputFunction = (e) => {
-
+    
   };
 
 if (content=="login") {
@@ -47,14 +37,28 @@ if (content=="password") {
   };
 }
 
+if (content=="inn" || content=="limit" || content=="range-start" || content=="range-end") {
+  
+  inputFunction = (e) => {
+    checkRequiredFields();
+  };
+}
+
+let checkRequiredFields = () => {
+  if (!document.querySelector('#app-input-inn').value && !document.querySelector('#app-input-limit').value
+  && (document.querySelector('#app-range-start').value == "") && (document.querySelector('#app-range-end').value == "")) {
+    console.log("null2")
+  }
+}
+
   return (
     <>
       <label className="input-default-label">
         {label}
         {star}
       </label>
-      <input id={id} onChange = {(e) => inputFunction(e)} type={type} className={styles} placeholder={placeholder} />
-      <p className="input-errorText hidden">{errorText}</p>
+      <input id={id} onChange = {(e) => inputFunction(e)} type={type} className={styles} placeholder={placeholder} required={required}/>
+      <p id={errorId} className="input-errorText hidden">{errorText}</p>
     </>
   );
 }

@@ -4,20 +4,30 @@ import Input from "@/components/Input/Input.tsx";
 import Checkbox from "@/components/Checkbox/Checkbox";
 import Select from "@/components/Select/Select";
 import Range from "@/components/Range/Range";
+import { useState, useEffect } from 'react';
 
 function SearchForm() {
- 
+  const [inn, setInn] = useState("");
+
+  function handleInput() {
+    if (document.querySelector('#app-input-inn').value) {
+      console.log(111)
+    }
+  }
+
+
   return (
     <form id="app-search-form" className="search__form">
       <div className="flex searchForm__block">
         <div className="searchForm__top stretch">
           <div className="searchForm__top-left">
-            <Input
+            <Input onChange={handleInput}
               type="text"
+              content="inn"
               style="searchForm__input"
               placeholder="10 цифр"
               label="ИНН компании"
-              required="true"
+              required
               id="app-input-inn"
             />
             <Select
@@ -27,10 +37,12 @@ function SearchForm() {
             />
             <Input
               type="text"
+              content="limit"
               style="searchForm__input"
               placeholder="От 1 до 1000"
               label="Количество документов в выдаче"
-              required="true"
+              required
+              id="app-input-limit"
             />
           </div>
           <div className="searchForm__top-right">
@@ -76,7 +88,7 @@ function SearchForm() {
             <Range
               id="app-search_max"
               label="Диапазон поиска"
-              required="true"
+              required
             />
           </div>
 

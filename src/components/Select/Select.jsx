@@ -13,12 +13,11 @@ function Select({ style, id, label }) {
   }
 
   const [option, setOption] = useState("");
-
+  
   const handleOptionChange = (e) => {
     setOption(e.target.value);
-    console.log(e.target.value)
   };
-
+  
   return (
     <>
       <label className="select-label">{label}</label>
