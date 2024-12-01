@@ -2,8 +2,6 @@ import "./Input.css";
 import React, {FC, useContext, useState} from "react";
 
 function Input({ type, style, placeholder, label, required, id, content }) {
-
-
   let styles = `input-default`;
   let errorStyles = "input-errorText hidden";
   if (style) {
@@ -12,9 +10,11 @@ function Input({ type, style, placeholder, label, required, id, content }) {
   if (content == "login" || content == "password") {
     errorStyles = `input-errorText input-errorText-auth hidden`;
   }
-  let star = "";
+  let star;
+  let starId;
   if (required) {
-    star = `\u00a0*`;
+    starId = id + `-star`
+    star = `\u00a0*`
   }
 
   let errorText = "Введите корректные данные";
@@ -84,7 +84,7 @@ function Input({ type, style, placeholder, label, required, id, content }) {
     <>
       <label className="input-default-label">
         {label}
-        {star}
+        <span id={starId}>{star}</span>
       </label>
       <input id={id} onChange = {(e) => inputFunction(e)} type={type} className={styles} placeholder={placeholder} required={required}/>
       <p id={errorId} className={errorStyles}>{errorText}</p>

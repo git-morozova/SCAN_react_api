@@ -43,16 +43,16 @@ function Range({ label, required }) {
     return maxInput;   
   }
 
-  let star = "";
+  let star;
   if (required) {
-    star = `\u00a0*`;
+    star = `\u00a0*`
   }
 
   return (
     <>
       <label className="select-label">
         {label}
-        {star}
+        <span id='app-input-range-star'>{star}</span>
       </label>
       <DatePicker
         className="select range"

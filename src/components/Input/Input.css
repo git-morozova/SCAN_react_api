@@ -13,6 +13,9 @@
   border: 1.5px solid var(--red) !important;
   color: var(--red) !important;
 }
+.input-error-star {
+  color: var(--red) !important;
+}
 .input-errorText {
   color: var(--red);
   text-align: center;
