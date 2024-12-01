@@ -23,6 +23,8 @@ function Button({ label, style, content }) {
       //обнуляем ошибки 
       document.querySelector("#app-input-login-error").classList.add('hidden');
       document.querySelector("#app-input-password-error").classList.add('hidden');
+      document.querySelector("#app-input-login").classList.remove('input-error');
+      document.querySelector("#app-input-password").classList.remove('input-error');
 
       let login = document.querySelector("#app-input-login").value;  
       let password = document.querySelector("#app-input-password").value;  
@@ -30,8 +32,10 @@ function Button({ label, style, content }) {
       //валидация полей
       if (!login) {
         document.querySelector("#app-input-login-error").classList.remove('hidden');
+        document.querySelector("#app-input-login").classList.add('input-error');
       } else if (!password) { 
         document.querySelector("#app-input-password-error").classList.remove('hidden');
+        document.querySelector("#app-input-password").classList.add('input-error');
       } else {
       //validation success      
       store.login(login, password);
@@ -46,6 +50,10 @@ function Button({ label, style, content }) {
       document.querySelector("#app-input-limit-error").classList.add('hidden');
       document.querySelector("#app-input-inn-error").classList.add('hidden');
       document.querySelector("#app-range-error").classList.add('hidden');
+      document.querySelector("#app-input-inn")?.classList.remove('input-error');
+      document.querySelector("#app-input-limit")?.classList.remove('input-error');
+      document.querySelector("#app-range-start")?.classList.remove('input-error');
+      document.querySelector("#app-range-end")?.classList.remove('input-error');
 
       //вытаскиваем значения из формы
       let limit = document.querySelector("#app-input-limit").value;  // (Количество документов в выдаче) 20
@@ -83,10 +91,14 @@ function Button({ label, style, content }) {
       //валидация полей
       if (!inn || !validateInnResult) {
         document.querySelector("#app-input-inn-error").classList.remove('hidden');
-      } else if (!limit || limit < 1 || limit > 1000) { 
+        document.querySelector("#app-input-inn").classList.add('input-error');
+      } else if (!limit || limit < 1 || limit > 1000 || isNaN(limit)) { 
         document.querySelector("#app-input-limit-error").classList.remove('hidden');
+        document.querySelector("#app-input-limit").classList.add('input-error');
       } else if (document.querySelector("#app-range-start").value == "" || document.querySelector("#app-range-end").value == "") {
         document.querySelector("#app-range-error").classList.remove('hidden');
+        document.querySelector("#app-range-start").classList.add('input-error');
+        document.querySelector("#app-range-end").classList.add('input-error');
 
       //validation success
       } else {        

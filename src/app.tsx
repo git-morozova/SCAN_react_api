@@ -2,6 +2,8 @@ import { createContext, StrictMode } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { createRoot } from 'react-dom/client'
 
+import { ToastContainer, toast } from 'react-custom-alert';
+import 'react-custom-alert/dist/index.css'; 
 
 import Main from "./pages/Main/Main";
 import Auth from "./pages/Auth/Auth";
@@ -53,6 +55,7 @@ createRoot(container).render(
       </BrowserRouter>
 
       </Context.Provider>
+      <ToastContainer floatingTime={5000} /> 
     </StrictMode>
 );
 

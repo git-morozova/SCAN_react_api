@@ -1,5 +1,4 @@
 import "./Input.css";
-import { Context } from "@/app";
 import React, {FC, useContext, useState} from "react";
 
 function Input({ type, style, placeholder, label, required, id, content }) {
@@ -42,12 +41,17 @@ function Input({ type, style, placeholder, label, required, id, content }) {
   }
 
   let checkRequiredFieldsAuth = () => {
+    document.querySelector("#app-input-login-error")?.classList.add('hidden');
+    document.querySelector("#app-input-password-error")?.classList.add('hidden');
+    document.querySelector("#app-input-login")?.classList.remove('input-error');
+    document.querySelector("#app-input-password")?.classList.remove('input-error');
+
     let button = document.querySelector('#app-button-login');
     if (!document.querySelector('#app-input-login').value || !document.querySelector('#app-input-password').value)
     {
-      button.classList.add('btn-disabled')
+      button?.classList.add('btn-disabled')
     } else {
-      button.classList.remove('btn-disabled')
+      button?.classList.remove('btn-disabled')
     }
   }
 
@@ -58,13 +62,21 @@ function Input({ type, style, placeholder, label, required, id, content }) {
   }
 
   let checkRequiredFieldsSearch = () => {
+    document.querySelector("#app-input-inn-error")?.classList.add('hidden');
+    document.querySelector("#app-input-limit-error")?.classList.add('hidden');
+    document.querySelector("#app-range-error")?.classList.add('hidden');
+    document.querySelector("#app-input-inn")?.classList.remove('input-error');
+    document.querySelector("#app-input-limit")?.classList.remove('input-error');
+    document.querySelector("#app-range-start")?.classList.remove('input-error');
+    document.querySelector("#app-range-end")?.classList.remove('input-error');
+
     let button = document.querySelector('#app-button-request');
     if (!document.querySelector('#app-input-inn').value || !document.querySelector('#app-input-limit').value
     || (document.querySelector('#app-range-start').value == "") || (document.querySelector('#app-range-end').value == ""))
     {
-      button.classList.add('btn-disabled')
+      button?.classList.add('btn-disabled')
     } else {
-      button.classList.remove('btn-disabled')
+      button?.classList.remove('btn-disabled')
     }
   }
 

@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import AuthService from "../services/AuthService";
 import HistogramsService from "../services/HistogramsService";
+import { ToastContainer, toast } from 'react-custom-alert';
 export default class Store {
     user = "";
     tariff = "";
@@ -37,7 +38,7 @@ export default class Store {
             localStorage.setItem('login', login);
             window.location.reload();
         } catch (e) {
-            console.log(e.response?.data?.message)
+            toast.error(e.response?.data?.message);
         }
     }
 
@@ -47,8 +48,7 @@ export default class Store {
             localStorage.clear();
             this.setAuth(false);
             this.setUser("");
-            window.location.reload();
-            
+            window.location.reload();            
         } catch (e) {
             console.log(e.response?.data?.message)
         }
@@ -81,7 +81,7 @@ export default class Store {
             this.saveTotalDocumentsResult(response.data.data[0].data);
             this.saveRiskFactorsResult(response.data.data[1].data);
         } catch (e) {
-            console.log(e.response?.data?.message)
+            toast.error(e.response?.data?.message);
         }
     }
     saveTotalDocumentsResult(result: Object) {
