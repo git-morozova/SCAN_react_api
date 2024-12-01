@@ -15,26 +15,33 @@ function Range({ label, required }) {
   let milliseconds = new Date().getTime();
   let pastDate = new Date(milliseconds - 31536000000);// 31536000000 миллисекунд в году
   let [startDate, setStartDate] = useState(pastDate);
+  
+ //для валидации endDate
+  let today = new Date();
 
-  let today = new Date(); //для валидации endDate
-
-
-
-
-  //decorator 
+  //декоратор для setStartDate / setEndDate
   const checkRequiredFields = function(fn) {
     return function(...args) {
-      if (!document.querySelector('#app-input-inn').value && !document.querySelector('#app-input-limit').value
-        && (document.querySelector('#app-range-start').value == "") && (document.querySelector('#app-range-end').value == "")) {
-          console.log("null")
-        }
-        return fn(...args);
+      fn(...args);
+      if (!document.querySelector('#app-input-inn').value || !document.querySelector('#app-input-limit').value
+        || (args[0] == null))
+      {
+        document.querySelector('#app-button-request').classList.add('btn-disabled');
+      } else {
+        document.querySelector('#app-button-request').classList.remove('btn-disabled');
+      }
+
     }
   }
-
-
-
-
+  
+  //функция для проверки maxDate (startDate)
+  const checkMaxDateField = function() {  
+    let maxInput = today;
+    if (endDate) {
+      (startDate > endDate) ? maxInput = startDate : maxInput = endDate
+    }
+    return maxInput;   
+  }
 
   let star = "";
   if (required) {
@@ -52,12 +59,12 @@ function Range({ label, required }) {
         locale="ru"
         dateFormat="dd.MM.YYYY"
         selected={startDate}
-        onChange={checkRequiredFields((date) => setStartDate(date))}
         selectsStart
         startDate={startDate}
-        maxDate={endDate}
+        maxDate={checkMaxDateField()}
         id="app-range-start"
         content="range-start"
+        onChange={checkRequiredFields((date) => setStartDate(date))}
         required
       />
       <DatePicker
@@ -65,13 +72,13 @@ function Range({ label, required }) {
         locale="ru"
         dateFormat="dd.MM.YYYY"
         selected={endDate}
-        onChange={checkRequiredFields((date) => setEndDate(date))}
         selectsEnd
         endDate={endDate}
         minDate={startDate}
         maxDate={today}
         id="app-range-end"
         content="range-end"
+        onChange={checkRequiredFields((date) => setEndDate(date))}
         required
       />
       <p className="input-errorText error-range hidden" id="app-range-error">

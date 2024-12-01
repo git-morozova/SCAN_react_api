@@ -4,24 +4,15 @@ import Input from "@/components/Input/Input.tsx";
 import Checkbox from "@/components/Checkbox/Checkbox";
 import Select from "@/components/Select/Select";
 import Range from "@/components/Range/Range";
-import { useState, useEffect } from 'react';
 
-function SearchForm() {
-  const [inn, setInn] = useState("");
-
-  function handleInput() {
-    if (document.querySelector('#app-input-inn').value) {
-      console.log(111)
-    }
-  }
-
+function SearchForm() {  
 
   return (
     <form id="app-search-form" className="search__form">
       <div className="flex searchForm__block">
         <div className="searchForm__top stretch">
           <div className="searchForm__top-left">
-            <Input onChange={handleInput}
+            <Input
               type="text"
               content="inn"
               style="searchForm__input"
@@ -70,7 +61,7 @@ function SearchForm() {
               id="app-search_tech"
               style="searchForm__checkbox"
               label="Включать технические новости рынков"
-            />
+            /> 
             <Checkbox
               id="app-search_anons"
               style="searchForm__checkbox"

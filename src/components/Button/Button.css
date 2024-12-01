@@ -42,9 +42,10 @@
 }
 .btn-disabled {
   background-color: #acb8ff;
+  cursor: auto;
 }
 .btn-disabled:hover {
-  background-color: var(--dop-dark);
+  background-color: #acb8ff;
 }
 @media (max-width: 786px) {
   .btn {

@@ -21,6 +21,9 @@
   font-size: 14px;
   max-width: 242px;
 }
+.input-errorText-auth {
+  max-width: unset;
+}
 .input-default::placeholder {
   color: #d8d8d8;
   text-align: center;

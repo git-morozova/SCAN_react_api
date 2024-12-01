@@ -12,18 +12,37 @@ function Button({ label, style, content }) {
     styles = `btn ` + style;
   }
 
+  let id;
+  if (content) {    
+    id = `app-button-` + content;
+  }
+
   const submitFunction = () => {
+    
     if (content == "login") {
-      store.login(
-        document.querySelector("#app-input-login").value,
-        document.querySelector("#app-input-password").value
-      );
+      //обнуляем ошибки 
+      document.querySelector("#app-input-login-error").classList.add('hidden');
+      document.querySelector("#app-input-password-error").classList.add('hidden');
+
+      let login = document.querySelector("#app-input-login").value;  
+      let password = document.querySelector("#app-input-password").value;  
+
+      //валидация полей
+      if (!login) {
+        document.querySelector("#app-input-login-error").classList.remove('hidden');
+      } else if (!password) { 
+        document.querySelector("#app-input-password-error").classList.remove('hidden');
+      } else {
+      //validation success      
+      store.login(login, password);
+      }
 
     } else if (content == "logout") {
       store.logout();
       
-    } else if (content == "request") {
-        //обнуляем ошибки      
+    } else if (content == "request") {  
+
+      //обнуляем ошибки      
       document.querySelector("#app-input-limit-error").classList.add('hidden');
       document.querySelector("#app-input-inn-error").classList.add('hidden');
       document.querySelector("#app-range-error").classList.add('hidden');
@@ -70,7 +89,7 @@ function Button({ label, style, content }) {
         document.querySelector("#app-range-error").classList.remove('hidden');
 
       //validation success
-      } else {
+      } else {        
         store.request(
           { // issueDateInterval (Диапазон поиска)
             "startDate": startDate,
@@ -109,7 +128,7 @@ function Button({ label, style, content }) {
   };
 
   return (    
-    <button type="button" onClick={submitFunction} className={styles}>
+    <button type="button" onClick={submitFunction} className={styles} id={id}>
       {label}
     </button>
   );
