@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-custom-alert';
 import 'react-custom-alert/dist/index.css'; 
 
 import Main from "./pages/Main/Main";
+import Test from "./pages/Main/Test";
 import Auth from "./pages/Auth/Auth";
 import Search from "./pages/Search/Search";
 

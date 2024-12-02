@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { runInAction, makeAutoObservable } from "mobx";
 import AuthService from "../services/AuthService";
 import HistogramsService from "../services/HistogramsService";
 import { ToastContainer, toast } from 'react-custom-alert';
@@ -8,6 +8,7 @@ export default class Store {
     tariff = "";
     isAuth = false;
     requestSuccess = false;
+    countResults = 0;
     searchResultTotalDocuments = {};
     searchResultRiskFactors = {};
     constructor() {
@@ -61,17 +62,12 @@ export default class Store {
         this.requestSuccess = bool;
     }
 
-    checkRequest() {
-        
-            return this.requestSuccess;
-        
-    }
     async request(
         issueDateInterval: Object, 
         searchContext: Object, 
         intervalType: string, 
         histogramTypes: Object, 
-        limit: string, 
+        limit: Number, 
         similarMode: string, 
         sortType: string, 
         sortDirectionType: string,
@@ -89,9 +85,21 @@ export default class Store {
                 sortDirectionType,
                 attributeFilters
             );
-            this.saveTotalDocumentsResult(response.data.data[0].data);
-            this.saveRiskFactorsResult(response.data.data[1].data);  
-            this.requestIsSuccess(true)         
+            setTimeout(() => {
+                this.saveTotalDocumentsResult(response.data.data[0].data);
+                this.saveRiskFactorsResult(response.data.data[1].data);
+
+                let sum = 0;     // для строки "Найдено ... результатов"
+                for(var i = 0, len = response.data.data[0].data.length; i < len; i++) {
+                    sum += response.data.data[0].data[i].value; 
+                }
+                runInAction(() => { // иначе - предупреждение в консоли по mobx
+                    this.countResults = sum;
+                })                
+                
+                this.requestIsSuccess(true) 
+               }, 3000); // имитируем загрузку для проверки лоадера      
+                    
         } catch (e) {
             toast.error(e.response?.data?.message);
         } 
@@ -102,8 +110,9 @@ export default class Store {
     saveRiskFactorsResult(result: Object) {
         this.searchResultRiskFactors = result;
     }
-     get getTotalDocuments() { //отмечен как computed
-            return JSON.parse(JSON.stringify(this.searchResultTotalDocuments)) //уходим от типа вывода "Proxy"   
+
+    get getTotalDocuments() { //отмечен как computed
+        return JSON.parse(JSON.stringify(this.searchResultTotalDocuments)) //уходим от типа вывода "Proxy"   
     } 
     get getRiskFactors() {
         return JSON.parse(JSON.stringify(this.searchResultRiskFactors))  

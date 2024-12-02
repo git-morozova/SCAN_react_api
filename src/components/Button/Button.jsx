@@ -112,7 +112,9 @@ function Button({ label, style, content }) {
 
       //validation success
       } else {        
-        store.request(
+        limit = Number(limit);
+
+        store.request(          
           { // issueDateInterval (Диапазон поиска)
             "startDate": startDate,
             "endDate": endDate
@@ -145,7 +147,6 @@ function Button({ label, style, content }) {
           "excludeDigests": excludeDigests
         }       
         );  
-
       }    
     }
   };

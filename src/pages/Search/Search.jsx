@@ -2,6 +2,7 @@ import "./Search.css";
 
 import validateInn from "@/features/validateInn";
 
+import { observer } from 'mobx-react-lite'
 import Button from "@/components/Button/Button";
 import Header from "@/layouts/Header/Header";
 import Footer from "@/layouts/Footer/Footer";
@@ -17,11 +18,16 @@ import Input from "@/components/Input/Input.tsx";
 import Checkbox from "@/components/Checkbox/Checkbox";
 import Select from "@/components/Select/Select";
 import Range from "@/components/Range/Range";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
+import { Context } from "@/app";
+import { useContext } from "react";
 
 // этот компонент рендерим после успешной отправки запроса
-function Results() {
+const Results = observer(() => {
+  const { store } = useContext(Context); 
+  let count = store.countResults;
+
   return  (
   <>
   <div id="app-results">
@@ -39,7 +45,9 @@ function Results() {
 
     <div className="container">
       <h2 className="results__header">Общая сводка</h2>
-      <p className="results__found grey">Найдено 4 221 вариантов</p>
+      <p className="results__found grey"> 
+        {!store.requestSuccess ? "..." : "Найдено " + count + " вариантов"}   
+      </p>
       <Table />
       <h2 className="results__header">Список документов</h2>
       <Document />
@@ -50,14 +58,21 @@ function Results() {
   </div>
   </>
   )
-}
+})
 
 //основной компонент
 function Search() {
+
   const [showComponent, setShowComponent] = useState(false);
   const handleSubmit = () => { setShowComponent(true); };
 
-  window.onload = function() { 
+  //обнулим store
+  const { store } = useContext(Context); 
+  store.requestSuccess = false;
+  store.searchResultTotalDocuments = {};
+  store.searchResultRiskFactors = {};
+
+  useEffect(() => {  
     //обнулим поля на случай, если юзер вернулся на страницу с results
     document.querySelector("#app-input-limit").value = ""
     document.querySelector("#app-input-inn").value = "";
@@ -81,7 +96,7 @@ function Search() {
           window.scrollTo({ top: 0, behavior: 'smooth' });        //прокрутка наверх страницы  
         }
     })
-  }
+  }, []);
 
   return (
     <>    

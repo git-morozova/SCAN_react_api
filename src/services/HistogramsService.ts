@@ -8,7 +8,7 @@ export default class HistogramsService {
         searchContext: Object,
         intervalType: string,
         histogramTypes: Object,
-        limit: string,
+        limit: Number,
         similarMode: string,
         sortType: string,
         sortDirectionType: string,

@@ -4,8 +4,11 @@ import arrowDark from "@img/icons/table_arrow-dark.png";
 import React, { useState, useEffect } from 'react';
 import spinner from "@img/icons/spinner_big.png";
 
+import { observer } from 'mobx-react-lite'
+
 import { Context } from "@/app";
 import { useContext } from "react";
+
 let itemsCount;
 let itemsCountCols;
 
@@ -76,14 +79,47 @@ function scrollMob(event, direction) {
   }
 }
 
-function Table() {
+
+export const Table = observer(() => {  //observer отслеживает изменения в store и ререндерит страницу
+  const { store } = useContext(Context);  
+
+  //searchResultArray
+  //собираем результат в удобный массив объектов
+  let searchResultArray = [];
+  
+  for (var keyTotal in store.getTotalDocuments) {
+    let item = store.getTotalDocuments[keyTotal]; 
+    let value = item.value;  
+    searchResultArray.push({"id": keyTotal, "date": item.date, "total": value})
+  }
+  
+  for (var keyRisk in store.getRiskFactors) {
+    let item = store.getRiskFactors[keyRisk]; 
+    let value = item.value;      
+    const tempObj = searchResultArray.find(({ id }) => id === keyRisk);
+    tempObj["risks"] = value
+  }
+
+  // форматируем дату
+  for (var keyDate in searchResultArray) {
+    let dateRaw = searchResultArray[keyDate].date; // 2024-09-01T03:00:00+03:00
+    let formattedDate = new Date(dateRaw); //Mon Jul 01 2024 03:00:00 GMT+0300 (Москва, стандартное время)
+    formattedDate = formattedDate.toISOString().split('T')[0] //2024-07-01
+    formattedDate = formattedDate.split("-").reverse().join("."); //01.07.2024 
+    searchResultArray[keyDate].date = formattedDate    
+  } 
+
+  // сортировка массива по дате
+  searchResultArray.sort(function(a,b){
+    return new Date(b.date) - new Date(a.date);
+  });
+ 
 
   //спиннер 
   function Loader() {          
     itemsCountCols = {
       gridTemplateColumns: `110px repeat(1, 1fr)`, //пока рендерим спиннер - один столбец
     };
-
     return (
       <>     
         <table className="table__inner" style={itemsCountCols}>
@@ -107,95 +143,10 @@ function Table() {
     );
   }
 
-  const _items = [
-    {
-        id: '0',
-        date: '10.09.2021',
-        total: '5',
-        risks: '0',
-    },
-    {
-        id: '1',
-        date: '10.09.2021',
-        total: '5',
-        risks: '1',
-    },
-    {
-        id: '2',
-        date: '10.09.2021',
-        total: '5',
-        risks: '2',
-    },
-    {
-        id: '3',
-        date: '10.09.2021',
-        total: '5',
-        risks: '3',
-    },
-    {
-        id: '4',
-        date: '10.09.2021',
-        total: '5',
-        risks: '4',
-    },
-    {
-        id: '5',
-        date: '10.09.2021',
-        total: '5',
-        risks: '5',
-    },
-    {
-        id: '6',
-        date: '10.09.2021',
-        total: '5',
-        risks: '6',
-    },
-    {
-        id: '7',
-        date: '10.09.2021',
-        total: '5',
-        risks: '7',
-    },
-    {
-        id: '8',
-        date: '10.09.2021',
-        total: '5',
-        risks: '8',
-    },
-    {
-        id: '9',
-        date: '10.09.2021',
-        total: '5',
-        risks: '9',
-    },
-    {
-        id: '10',
-        date: '10.09.2021',
-        total: '5',
-        risks: '10',
-    },
-    {
-        id: '11',
-        date: '10.09.2021',
-        total: '5',
-        risks: '11',
-    },
-    {
-        id: '12',
-        date: '10.09.2021',
-        total: '5',
-        risks: '12',
-    }
-   
-];
-
-
-
-
-
-  //блок выводится после загрузки данных
+  // MainContent
+  //блок MainContent выводится после загрузки данных
   function MainContent() {  
-    itemsCount = _items.length; //число столбцов в таблице = число элементов в массиве
+    itemsCount = searchResultArray.length; //число столбцов в таблице = число элементов в массиве
     itemsCountCols = {
       gridTemplateColumns: `110px repeat(` + itemsCount + `, 1fr)`, //запишем число столбцов в grid
     };
@@ -216,8 +167,9 @@ function Table() {
       }
 
       //МОБ - показать первую строку таблицы
-      let firstRow = document.querySelector("#row-mob_0");
-      firstRow.className = "table__row-mob";
+      if(document.querySelector("#row-mob_0")) {
+        document.querySelector("#row-mob_0").className = "table__row-mob";
+      }
     }, []);
 
     return (      
@@ -230,8 +182,8 @@ function Table() {
               <th>Риски</th>
             </tr>
           </thead>
-        
-          {_items.map((item) => {
+
+          {searchResultArray.map((item) => {
             let id = "row_" + item.id;
             let idMob = "row-mob_" + item.id;
             return (
@@ -254,47 +206,7 @@ function Table() {
       </>    
     );
   }
-
-  const [isLoading, setIsLoading] = useState(true);
   
-
-  const { store } = useContext(Context);
-  useEffect(() => {    
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000); // имитируем загрузку      
-  }, []);
-
-  //console.log(store.getTotalDocuments.length)
-
-  let searchResultArray = [];
-
-
-  for (var keyTotal in store.getTotalDocuments) {
-    let item = store.getTotalDocuments[keyTotal]; 
-    let value = item.value;
-
-    let date = item.date; // 2024-09-01T03:00:00+03:00
-    let dateFormatted = new Date(date); //Mon Jul 01 2024 03:00:00 GMT+0300 (Москва, стандартное время)
-    dateFormatted = dateFormatted.toISOString().split('T')[0] //2024-07-01
-    dateFormatted = dateFormatted.split("-").reverse().join("."); //01.07.2024    
-
-    searchResultArray.push({"date": dateFormatted, "totalDocumentsValue": value})
-  }
-  
-  for (var keyRisk in store.getRiskFactors) {
-    let item = store.getRiskFactors[keyRisk]; 
-    let value = item.value;
-
-    let date = item.date; // 2024-09-01T03:00:00+03:00
-    let dateFormatted = new Date(date); //Mon Jul 01 2024 03:00:00 GMT+0300 (Москва, стандартное время)
-    dateFormatted = dateFormatted.toISOString().split('T')[0] //2024-07-01
-    dateFormatted = dateFormatted.split("-").reverse().join("."); //01.07.2024    
-
-    searchResultArray.push({"date": dateFormatted, "riskFactorsValue": value})
-  }
-  console.log(searchResultArray); 
-
   return ( 
     <>
       <div className="table__main">
@@ -324,9 +236,9 @@ function Table() {
             alt="<"
           />
         </button>
-        <div id="app-table" className="table__block">            
-          
-            {isLoading ? <Loader /> : <MainContent />}
+        <div id="app-table" className="table__block">   
+
+        {!store.requestSuccess ? <Loader /> : <MainContent />}        
 
         </div>
         <button
@@ -358,6 +270,6 @@ function Table() {
       </div>
     </>   
   );
-}
+})
 
 export default Table;
