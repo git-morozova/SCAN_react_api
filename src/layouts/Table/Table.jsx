@@ -256,16 +256,44 @@ function Table() {
   }
 
   const [isLoading, setIsLoading] = useState(true);
+  
 
   const { store } = useContext(Context);
-  useEffect(() => {
+  useEffect(() => {    
     setTimeout(() => {
       setIsLoading(false);
-      console.log(store.searchResultRiskFactors.length)
-      console.log(store.searchResultRiskFactors[0].date)
-      console.log(store.searchResultRiskFactors[0].value)
-    }, 1000); // имитируем загрузку      
+    }, 3000); // имитируем загрузку      
   }, []);
+
+  //console.log(store.getTotalDocuments.length)
+
+  let searchResultArray = [];
+
+
+  for (var keyTotal in store.getTotalDocuments) {
+    let item = store.getTotalDocuments[keyTotal]; 
+    let value = item.value;
+
+    let date = item.date; // 2024-09-01T03:00:00+03:00
+    let dateFormatted = new Date(date); //Mon Jul 01 2024 03:00:00 GMT+0300 (Москва, стандартное время)
+    dateFormatted = dateFormatted.toISOString().split('T')[0] //2024-07-01
+    dateFormatted = dateFormatted.split("-").reverse().join("."); //01.07.2024    
+
+    searchResultArray.push({"date": dateFormatted, "totalDocumentsValue": value})
+  }
+  
+  for (var keyRisk in store.getRiskFactors) {
+    let item = store.getRiskFactors[keyRisk]; 
+    let value = item.value;
+
+    let date = item.date; // 2024-09-01T03:00:00+03:00
+    let dateFormatted = new Date(date); //Mon Jul 01 2024 03:00:00 GMT+0300 (Москва, стандартное время)
+    dateFormatted = dateFormatted.toISOString().split('T')[0] //2024-07-01
+    dateFormatted = dateFormatted.split("-").reverse().join("."); //01.07.2024    
+
+    searchResultArray.push({"date": dateFormatted, "riskFactorsValue": value})
+  }
+  console.log(searchResultArray); 
 
   return ( 
     <>

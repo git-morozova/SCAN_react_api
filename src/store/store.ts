@@ -102,13 +102,11 @@ export default class Store {
     saveRiskFactorsResult(result: Object) {
         this.searchResultRiskFactors = result;
     }
-     getTotalDocuments() {
-        try {
-             this.searchResultTotalDocuments;
-            return console.log(1)
-        } catch (e) {
-            console.log(e.response?.data?.message)
-        }
-    }
+     get getTotalDocuments() { //отмечен как computed
+            return JSON.parse(JSON.stringify(this.searchResultTotalDocuments)) //уходим от типа вывода "Proxy"   
+    } 
+    get getRiskFactors() {
+        return JSON.parse(JSON.stringify(this.searchResultRiskFactors))  
+    } 
 
 }       
