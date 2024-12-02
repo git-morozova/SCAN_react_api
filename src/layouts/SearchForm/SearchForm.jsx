@@ -6,6 +6,11 @@ import Select from "@/components/Select/Select";
 import Range from "@/components/Range/Range";
 
 function SearchForm() {  
+  window.onload = function() { 
+    //обнулим поля на случай, если юзер вернулся на страницу с results
+    document.querySelector("#app-input-limit").value = ""
+    document.querySelector("#app-input-inn").value = ""
+  }
 
   return (
     <form id="app-search-form" className="search__form">

@@ -1,10 +1,11 @@
 import "./Table.scss";
 import arrow from "@img/icons/table_arrow.png";
 import arrowDark from "@img/icons/table_arrow-dark.png";
-import _items from "./items";
 import React, { useState, useEffect } from 'react';
 import spinner from "@img/icons/spinner_big.png";
 
+import { Context } from "@/app";
+import { useContext } from "react";
 let itemsCount;
 let itemsCountCols;
 
@@ -106,6 +107,91 @@ function Table() {
     );
   }
 
+  const _items = [
+    {
+        id: '0',
+        date: '10.09.2021',
+        total: '5',
+        risks: '0',
+    },
+    {
+        id: '1',
+        date: '10.09.2021',
+        total: '5',
+        risks: '1',
+    },
+    {
+        id: '2',
+        date: '10.09.2021',
+        total: '5',
+        risks: '2',
+    },
+    {
+        id: '3',
+        date: '10.09.2021',
+        total: '5',
+        risks: '3',
+    },
+    {
+        id: '4',
+        date: '10.09.2021',
+        total: '5',
+        risks: '4',
+    },
+    {
+        id: '5',
+        date: '10.09.2021',
+        total: '5',
+        risks: '5',
+    },
+    {
+        id: '6',
+        date: '10.09.2021',
+        total: '5',
+        risks: '6',
+    },
+    {
+        id: '7',
+        date: '10.09.2021',
+        total: '5',
+        risks: '7',
+    },
+    {
+        id: '8',
+        date: '10.09.2021',
+        total: '5',
+        risks: '8',
+    },
+    {
+        id: '9',
+        date: '10.09.2021',
+        total: '5',
+        risks: '9',
+    },
+    {
+        id: '10',
+        date: '10.09.2021',
+        total: '5',
+        risks: '10',
+    },
+    {
+        id: '11',
+        date: '10.09.2021',
+        total: '5',
+        risks: '11',
+    },
+    {
+        id: '12',
+        date: '10.09.2021',
+        total: '5',
+        risks: '12',
+    }
+   
+];
+
+
+
+
 
   //блок выводится после загрузки данных
   function MainContent() {  
@@ -171,10 +257,14 @@ function Table() {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const { store } = useContext(Context);
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 4000); // имитируем долгую загрузку      
+      console.log(store.searchResultRiskFactors.length)
+      console.log(store.searchResultRiskFactors[0].date)
+      console.log(store.searchResultRiskFactors[0].value)
+    }, 1000); // имитируем загрузку      
   }, []);
 
   return ( 

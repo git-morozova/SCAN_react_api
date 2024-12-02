@@ -2,10 +2,12 @@ import { makeAutoObservable } from "mobx";
 import AuthService from "../services/AuthService";
 import HistogramsService from "../services/HistogramsService";
 import { ToastContainer, toast } from 'react-custom-alert';
+
 export default class Store {
     user = "";
     tariff = "";
     isAuth = false;
+    requestSuccess = false;
     searchResultTotalDocuments = {};
     searchResultRiskFactors = {};
     constructor() {
@@ -55,6 +57,15 @@ export default class Store {
     }
  
     //сервисы поиска
+    requestIsSuccess(bool: boolean) {
+        this.requestSuccess = bool;
+    }
+
+    checkRequest() {
+        
+            return this.requestSuccess;
+        
+    }
     async request(
         issueDateInterval: Object, 
         searchContext: Object, 
@@ -79,16 +90,25 @@ export default class Store {
                 attributeFilters
             );
             this.saveTotalDocumentsResult(response.data.data[0].data);
-            this.saveRiskFactorsResult(response.data.data[1].data);
+            this.saveRiskFactorsResult(response.data.data[1].data);  
+            this.requestIsSuccess(true)         
         } catch (e) {
             toast.error(e.response?.data?.message);
-        }
+        } 
     }
     saveTotalDocumentsResult(result: Object) {
-        this.searchResultTotalDocuments = result;
+        this.searchResultTotalDocuments = result;        
     }
     saveRiskFactorsResult(result: Object) {
         this.searchResultRiskFactors = result;
+    }
+     getTotalDocuments() {
+        try {
+             this.searchResultTotalDocuments;
+            return console.log(1)
+        } catch (e) {
+            console.log(e.response?.data?.message)
+        }
     }
 
 }       

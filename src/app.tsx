@@ -8,7 +8,6 @@ import 'react-custom-alert/dist/index.css';
 import Main from "./pages/Main/Main";
 import Auth from "./pages/Auth/Auth";
 import Search from "./pages/Search/Search";
-import Results from "./pages/Results/Results";
 
 import React from "react";
 
@@ -39,15 +38,13 @@ createRoot(container).render(
           <Route exact path="/" element={<Main />} />
           {store.checkAuth() ? (
             <>
-              <Route path="/auth" element={<Navigate to="/" replace />}   /> 
+              <Route path="/auth" element={<Navigate to="/" replace />} /> 
               <Route path="/search" element={<Search />} />
-              <Route path="/results" element={<Results />} /> 
             </>
             ) : (
             <>
               <Route path="/auth" element={<Auth />} />
-              <Route path="/search" element={<Navigate to="/" replace />} /> 
-              <Route path="/results" element={<Navigate to="/" replace />} /> 
+              <Route path="/search" element={<Navigate to="/" replace />} />            
             </>
           )}
           <Route path="*" element={<Navigate to="/" replace />} />         

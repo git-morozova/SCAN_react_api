@@ -3,6 +3,8 @@ import { Context } from "@/app";
 import { useContext } from "react";
 import validateInn from "@/features/validateInn";
 
+import React, { useState } from 'react';
+
 function Button({ label, style, content }) {
   const { store } = useContext(Context);
   
@@ -142,7 +144,8 @@ function Button({ label, style, content }) {
           "excludeAnnouncements": excludeAnnouncements,
           "excludeDigests": excludeDigests
         }       
-        );          
+        );  
+
       }    
     }
   };
