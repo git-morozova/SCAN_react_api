@@ -1,7 +1,7 @@
 import "./Search.css";
 
 import validateInn from "@/features/validateInn";
-
+import { runInAction, makeAutoObservable } from "mobx"
 import { observer } from 'mobx-react-lite'
 import Button from "@/components/Button/Button";
 import Header from "@/layouts/Header/Header";
@@ -68,9 +68,12 @@ function Search() {
 
   //обнулим store
   const { store } = useContext(Context); 
-  store.requestSuccess = false;
-  store.searchResultTotalDocuments = {};
-  store.searchResultRiskFactors = {};
+
+  runInAction(() => { // иначе - предупреждение в консоли по mobx
+    store.requestSuccess = false;
+    store.searchResultTotalDocuments = {};
+    store.searchResultRiskFactors = {};
+  }) 
 
   useEffect(() => {  
     //обнулим поля на случай, если юзер вернулся на страницу с results

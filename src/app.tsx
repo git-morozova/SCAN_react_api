@@ -2,6 +2,7 @@ import { createContext, StrictMode } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { createRoot } from 'react-dom/client'
 
+import UserInfoService from "@/services/UserInfoService";
 import { ToastContainer, toast } from 'react-custom-alert';
 import 'react-custom-alert/dist/index.css'; 
 
@@ -21,11 +22,13 @@ interface State {store: Store}
 const store = new Store();
 export const Context = createContext<State>({store})
 
+
 if(localStorage.getItem("token")) {
   const login: string = localStorage.getItem("login")!;
   store.setAuth(true);  
   store.setUser(login); 
   store.setTariff("beginner");  //задаем тариф жестко, т.к. в API нет инфы о тарифе для юзера
+  store.getUserCounters();
 }
 
 const container = document.getElementById("app-root")!;

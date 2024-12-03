@@ -1,12 +1,16 @@
 import { runInAction, makeAutoObservable } from "mobx";
 import AuthService from "../services/AuthService";
 import HistogramsService from "../services/HistogramsService";
+import UserInfoService from "../services/UserInfoService";
 import { ToastContainer, toast } from 'react-custom-alert';
 
 export default class Store {
     user = "";
     tariff = "";
     isAuth = false;
+    userCompanyLimit = 0;
+    userUsedCompanyCount = 0;
+    countSuccess = false;
     requestSuccess = false;
     countResults = 0;
     searchResultTotalDocuments = {};
@@ -29,6 +33,38 @@ export default class Store {
     setUser(user: string) {
         this.user = user;
     }
+    countIsSuccess(bool: boolean) {
+        this.countSuccess = bool;
+    }
+    setCompanyLimit(userCompanyLimit: number) {
+        this.userCompanyLimit = userCompanyLimit;
+    }
+    setUsedCompanyCount(userUsedCompanyCount: number) {
+        this.userUsedCompanyCount = userUsedCompanyCount;
+    }
+    async getUserCounters() {             
+        try {
+            const limits = await UserInfoService.info(); 
+            setTimeout(() => {            
+                this.setCompanyLimit(limits.data.eventFiltersInfo.companyLimit); 
+                this.setUsedCompanyCount(limits.data.eventFiltersInfo.usedCompanyCount); 
+
+                this.countIsSuccess(true)  
+            }, 3000); // имитируем загрузку для проверки лоадера
+               
+             
+        } catch (e) {
+            console.log(e.response?.data?.message)
+        }
+    }   
+    
+    get getCompanyLimit() { //отмечен как computed
+        return this.userCompanyLimit   
+    }  
+    get getUsedCompanyCount() { 
+        return this.userUsedCompanyCount  
+    } 
+
     setTariff(tariff: string) {
         this.tariff = tariff;
     }
@@ -98,7 +134,7 @@ export default class Store {
                 })                
                 
                 this.requestIsSuccess(true) 
-               }, 3000); // имитируем загрузку для проверки лоадера      
+            }, 3000); // имитируем загрузку для проверки лоадера      
                     
         } catch (e) {
             toast.error(e.response?.data?.message);
