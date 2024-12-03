@@ -68,6 +68,11 @@
   }
 }
 
+.docs__spinner {
+  text-align: center;
+  padding: 40px !important
+}
+
 
 .results__title {
   width: 52%;

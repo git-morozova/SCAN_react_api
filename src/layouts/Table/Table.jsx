@@ -109,12 +109,6 @@ export const Table = observer(() => {  //observer отслеживает изм�
     searchResultArray[keyDate].date = formattedDate    
   } 
 
-  // сортировка массива по дате
-  searchResultArray.sort(function(a,b){
-    return new Date(b.date) - new Date(a.date);
-  });
- 
-
   //спиннер 
   function Loader() {          
     itemsCountCols = {

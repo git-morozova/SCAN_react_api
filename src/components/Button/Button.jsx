@@ -112,41 +112,47 @@ function Button({ label, style, content }) {
 
       //validation success
       } else {        
+        let issueDateInterval = { // issueDateInterval (Диапазон поиска)
+          "startDate": startDate,
+          "endDate": endDate
+        }
+        let searchContext = { // searchContext          
+          "targetSearchEntitiesContext": {
+            "targetSearchEntities": [
+              {
+                "type": "company", //фикс значение
+                "inn": inn,
+                "maxFullness": maxFullness,
+                "inBusinessNews": inBusinessNews
+              }
+            ],
+            "onlyMainRole": onlyMainRole,
+            "tonality": tonality,
+            "onlyWithRiskFactors": onlyWithRiskFactors,
+          },       
+        }
+
+        let intervalType =  "month" //фикс значение intervalType
+        let histogramTypes = ["totalDocuments","riskFactors"] // фикс значение histogramTypes
         limit = Number(limit);
+        let  similarMode = "duplicates" //фикс значение similarMode
+        let  sortType = "sourceInfluence" //фикс значение sortType
+        let  sortDirectionType = "desc" //фикс значение sortDirectionType
 
-        store.request(          
-          { // issueDateInterval (Диапазон поиска)
-            "startDate": startDate,
-            "endDate": endDate
-          },
-          { // searchContext
-            "targetSearchEntitiesContext": {
-              "targetSearchEntities": [
-                {
-                  "type": "company", //фикс значение
-                  "inn": inn,
-                  "maxFullness": maxFullness,
-                  "inBusinessNews": inBusinessNews
-                }
-              ],
-              "onlyMainRole": onlyMainRole,
-              "tonality": tonality,
-              "onlyWithRiskFactors": onlyWithRiskFactors,
-            },       
-          },
-        "month", //фикс значение intervalType
-        ["totalDocuments","riskFactors"], // фикс значение histogramTypes
-        limit,
-        "duplicates", //фикс значение similarMode
-        "sourceInfluence", //фикс значение sortType
-        "desc", //фикс значение sortDirectionType
-
-        { // attributeFilters
+        let attributeFilters = { // attributeFilters
           "excludeTechNews": excludeTechNews,
           "excludeAnnouncements": excludeAnnouncements,
           "excludeDigests": excludeDigests
-        }       
-        );  
+        }          
+
+        //получаем ответ для отрисовки таблицы
+        store.request( issueDateInterval,  searchContext, intervalType, histogramTypes, limit,
+          similarMode, sortType, sortDirectionType, attributeFilters );  
+
+        //получаем id публикаций и сами публикации
+        store.docsItems( issueDateInterval,  searchContext, intervalType, histogramTypes, limit,
+          similarMode, sortType, sortDirectionType, attributeFilters );  
+
       }    
     }
   };

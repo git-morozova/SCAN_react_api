@@ -1,6 +1,8 @@
 import { runInAction, makeAutoObservable } from "mobx";
 import AuthService from "../services/AuthService";
 import HistogramsService from "../services/HistogramsService";
+import DocsItemsService from "../services/DocsItemsService";
+import DocsService from "../services/DocsService";
 import UserInfoService from "../services/UserInfoService";
 import { ToastContainer, toast } from 'react-custom-alert';
 
@@ -11,10 +13,19 @@ export default class Store {
     userCompanyLimit = 0;
     userUsedCompanyCount = 0;
     countSuccess = false;
-    requestSuccess = false;
+
     countResults = 0;
     searchResultTotalDocuments = {};
-    searchResultRiskFactors = {};
+    searchResultRiskFactors = {};    
+    requestSuccess = false;
+
+    docsItemsResult = {};
+    docsItemsCount = 0;
+    docsItemsReady = false;
+
+    docsResult = {};
+    docsResultReady = false;
+
     constructor() {
         makeAutoObservable(this)
     }
@@ -154,4 +165,72 @@ export default class Store {
         return JSON.parse(JSON.stringify(this.searchResultRiskFactors))  
     } 
 
+    //сервисы получения документов    
+    async docsItems(
+        issueDateInterval: Object, 
+        searchContext: Object, 
+        intervalType: string, 
+        histogramTypes: Object, 
+        limit: Number, 
+        similarMode: string, 
+        sortType: string, 
+        sortDirectionType: string,
+        attributeFilters: Object
+    ) {
+        try {
+            const response = await DocsItemsService.request(
+                issueDateInterval, 
+                searchContext, 
+                intervalType, 
+                histogramTypes, 
+                limit, 
+                similarMode, 
+                sortType, 
+                sortDirectionType,
+                attributeFilters
+            );
+            setTimeout(() => {
+                this.saveDocsItemsResult(response.data.items);    
+                this.docsItemsCount = response.data.items.length   
+                runInAction(() => { // иначе - предупреждение в консоли по mobx
+                    this.docsItemsReady = true
+                })       
+
+                let arr: Array<string> = [];     // собираем результаты в массив
+                for(var i = 0, len = response.data.items.length; i < len; i++) {
+                    arr.push(response.data.items[i].encodedId); 
+                }
+                this.docs(arr)
+
+
+
+            }, 4000); // имитируем загрузку                 
+                    
+        } catch (e) {
+            toast.error(e.response?.data?.message);
+        } 
+    }
+
+    saveDocsItemsResult(result: Object) {
+        this.docsItemsResult = result;        
+    }
+
+    async docs(ids: Object) {
+        try {
+            const response = await DocsService.request(ids);
+            setTimeout(() => {
+                this.docsResult = response.data
+                runInAction(() => { // иначе - предупреждение в консоли по mobx
+                    this.docsResultReady = true
+                })                 
+            }, 2000); // имитируем загрузку                 
+                    
+        } catch (e) {
+            toast.error(e.response?.data?.message);
+        } 
+    }    
+    
+    get getDocs() {
+        return this.docsResult
+    } 
 }       

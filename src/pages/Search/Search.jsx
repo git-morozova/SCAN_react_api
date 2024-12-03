@@ -1,7 +1,8 @@
 import "./Search.css";
+import spinner from "@img/icons/spinner_big.png";
 
 import validateInn from "@/features/validateInn";
-import { runInAction, makeAutoObservable } from "mobx"
+import { runInAction } from "mobx"
 import { observer } from 'mobx-react-lite'
 import Button from "@/components/Button/Button";
 import Header from "@/layouts/Header/Header";
@@ -23,7 +24,7 @@ import React, { useState, useEffect } from 'react';
 import { Context } from "@/app";
 import { useContext } from "react";
 
-// этот компонент рендерим после успешной отправки запроса
+// этот компонент рендерим после получения успешного ответа на запрос 
 const Results = observer(() => {
   const { store } = useContext(Context); 
   let count = store.countResults;
@@ -49,11 +50,20 @@ const Results = observer(() => {
         {!store.requestSuccess ? "..." : "Найдено " + count + " вариантов"}   
       </p>
       <Table />
-      <h2 className="results__header">Список документов</h2>
-      <Document />
-      <div className="results__more">
-        <Button type="request" label="Показать больше" content="showMore"/>
+      {!store.docsResultReady 
+      ? 
+      <div className="container docs__spinner">
+        <img src={spinner} className="table__spinner" alt="загрузка..." />
       </div>
+      : 
+      <>     
+        <h2 className="results__header">Список документов</h2>
+        <Document />
+        <div className="results__more">
+          <Button type="request" label="Показать больше" content="showMore"/>
+        </div>       
+      </>
+      }
     </div>
   </div>
   </>
