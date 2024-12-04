@@ -10,8 +10,8 @@ const Document = () => {
 
   //собираем результат в удобный массив
   let docsResultArray = [];
-
-  for (var key in store.getDocs) {    
+  
+  for (let key in store.getDocs) {    
     let item = store.getDocs[key].ok; 
 
     let issueDate = item.issueDate;    // 2024-11-27T18:44:09+03:00  - в статье с этой датой есть картинка   
@@ -29,26 +29,23 @@ const Document = () => {
     if (item.attributes.isDigest) {attribute = "Сводки новостей"}; 
 
     let wordCount = item.attributes.wordCount; 
-    let url = item.url; 
-    let text = item.content.markup; 
+    let url = item.url;     
+
+    let text = item.content.markup;
 
     docsResultArray.push({
       "id": key, 
       "date": issueDate, 
       "source": source, 
-      "image": '../src/assets/img/results_doc2.jpg',
+      "image": '../src/assets/img/results_doc2.jpg', // проверка на 0 и формат
       "title": title, 
       "badge": attribute, 
       "count": wordCount, 
       "link": url, 
-      "text": text
+      "text": text //формат
     })
-  }  
- 
-  // сортировка массива по дате
-  docsResultArray.sort(function(a,b){
-    return new Date(b.date) - new Date(a.date);
-  });
+  }   
+
 
   return (
     <div className="flex documents flex-btw">
@@ -64,7 +61,7 @@ const Document = () => {
             <a href={item.link} target="_blank"><h3 className="documents__title">{item.title}</h3></a>
 
             <div>
-              <p className="documents__badge">{item.badge}</p>
+            {item.badge ? <p className="documents__badge">{item.badge}</p> : ""}      
             </div>
             <img
               src={item.image}

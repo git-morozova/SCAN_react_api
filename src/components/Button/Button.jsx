@@ -2,8 +2,7 @@ import "./Button.css";
 import { Context } from "@/app";
 import { useContext } from "react";
 import validateInn from "@/features/validateInn";
-
-import React, { useState } from 'react';
+import { runInAction } from "mobx";
 
 function Button({ label, style, content }) {
   const { store } = useContext(Context);
@@ -151,10 +150,14 @@ function Button({ label, style, content }) {
 
         //получаем id публикаций и сами публикации
         store.docsItems( issueDateInterval,  searchContext, intervalType, histogramTypes, limit,
-          similarMode, sortType, sortDirectionType, attributeFilters );  
-
-      }    
-    }
+          similarMode, sortType, sortDirectionType, attributeFilters ); 
+      }        
+    
+    } else if (content == "showMore") {       
+      runInAction(() => {         
+          store.docs()    
+      })  
+    }     
   };
 
   return (    

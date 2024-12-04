@@ -19,7 +19,7 @@ import Input from "@/components/Input/Input.tsx";
 import Checkbox from "@/components/Checkbox/Checkbox";
 import Select from "@/components/Select/Select";
 import Range from "@/components/Range/Range";
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 import { Context } from "@/app";
 import { useContext } from "react";
@@ -27,10 +27,11 @@ import { useContext } from "react";
 // этот компонент рендерим после получения успешного ответа на запрос 
 const Results = observer(() => {
   const { store } = useContext(Context); 
-  let count = store.countResults;
+  let count = store.countResults; 
 
   return  (
   <>
+
   <div id="app-results">
     <div className="container">
       <div className="results__top">
@@ -59,9 +60,14 @@ const Results = observer(() => {
       <>     
         <h2 className="results__header">Список документов</h2>
         <Document />
+
+        {store.endOfRange ? "" : 
         <div className="results__more">
-          <Button type="request" label="Показать больше" content="showMore"/>
-        </div>       
+          <Button label="Показать больше" content="showMore"/>
+        </div>
+        }    
+        
+        {console.log("Документов подгружено: " + store.docsResult.length)}              
       </>
       }
     </div>

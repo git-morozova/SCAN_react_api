@@ -2,10 +2,10 @@ import { createContext, StrictMode } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { createRoot } from 'react-dom/client'
 
-import UserInfoService from "@/services/UserInfoService";
 import { ToastContainer, toast } from 'react-custom-alert';
 import 'react-custom-alert/dist/index.css'; 
 
+import Test from "./pages/Main/Test";
 import Main from "./pages/Main/Main";
 import Auth from "./pages/Auth/Auth";
 import Search from "./pages/Search/Search";

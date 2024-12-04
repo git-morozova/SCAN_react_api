@@ -21,6 +21,8 @@ export default class Store {
 
     docsItemsResult = {};
     docsItemsCount = 0;
+    itemsRange = [0,9];
+    endOfRange = false;
     docsItemsReady = false;
 
     docsResult = {};
@@ -194,17 +196,10 @@ export default class Store {
                 this.docsItemsCount = response.data.items.length   
                 runInAction(() => { // иначе - предупреждение в консоли по mobx
                     this.docsItemsReady = true
-                })       
+                })     
+                this.docs() 
 
-                let arr: Array<string> = [];     // собираем результаты в массив
-                for(var i = 0, len = response.data.items.length; i < len; i++) {
-                    arr.push(response.data.items[i].encodedId); 
-                }
-                this.docs(arr)
-
-
-
-            }, 4000); // имитируем загрузку                 
+            }, 1000); // имитируем загрузку                 
                     
         } catch (e) {
             toast.error(e.response?.data?.message);
@@ -213,17 +208,40 @@ export default class Store {
 
     saveDocsItemsResult(result: Object) {
         this.docsItemsResult = result;        
-    }
+    }  
+    get getDocsItemsResult() {
+        return JSON.parse(JSON.stringify(this.docsItemsResult)) //уходим от типа вывода "Proxy"       
+    }        
 
-    async docs(ids: Object) {
+    async docs() {
         try {
-            const response = await DocsService.request(ids);
-            setTimeout(() => {
+            if (this.docsItemsCount <= (this.itemsRange[1] +1)) {
+                this.itemsRange[1] = this.docsItemsCount -1
+                this.endOfRange = true
+                toast.info("Все документы загружены");
+            }         
+
+            //собираем актуальный массив id, максимум 10 доков
+            let ids: Array<string> = [];    
+            for(let i = this.itemsRange[0], len = this.itemsRange[1]; i <= len; i++) {
+                ids.push(this.getDocsItemsResult[i].encodedId);               
+            }                         
+
+            //запрашиваем доки для каждого id из актуального массива из 10 доков
+            const response = await DocsService.request(ids); 
+            
+            runInAction(() => { // иначе - предупреждение в консоли по mobx
                 this.docsResult = response.data
-                runInAction(() => { // иначе - предупреждение в консоли по mobx
-                    this.docsResultReady = true
-                })                 
-            }, 2000); // имитируем загрузку                 
+                this.docsResultReady = true
+
+                //после получения массива переписываем itemsRange для следующего запроса
+                if(this.docsItemsCount - this.itemsRange[1] > 9) {
+                    this.itemsRange[1] = this.itemsRange[1] + 10
+                } else {
+
+                    this.itemsRange[1] = this.docsItemsCount -1
+                }                
+            })             
                     
         } catch (e) {
             toast.error(e.response?.data?.message);
@@ -232,5 +250,5 @@ export default class Store {
     
     get getDocs() {
         return this.docsResult
-    } 
+    }        
 }       
