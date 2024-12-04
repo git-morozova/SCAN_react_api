@@ -37,7 +37,6 @@ const Document = () => {
     //Парсер текста статьи
 
     let rawText = item.content.markup
-    console.log(item.content.markup)
 
     //убираем лишние теги
     rawText = rawText.replace(/<entity.*?>/ig,'')
@@ -45,16 +44,18 @@ const Document = () => {
     rawText = rawText.replace(/<speech.*?>/ig,'')
     rawText = rawText.replace(/<\/speech>/ig,'')
 
+    let image = "";
+
     //считаем количество текстовых нод в статье 
     let xmlCountNodes = new XMLParser().parseFromString(item.content.markup,"text/xml").getElementsByTagName("sentence")
     
     // в этот массив будем отбирать и добавлять предложения по тегу sentence
     let text = [];    
      
-    for (let i = 0; i < xmlCountNodes.length; i++) {    
+    for (let i = 0; i < xmlCountNodes.length; i++) { 
       let xml = new XMLParser().parseFromString(rawText,"text/xml").getElementsByTagName("sentence")[i]; 
 
-      //функция замыкания
+         //функция замыкания
       function parseString (xmlRaw) {
         if(xmlRaw == undefined) {
           return
@@ -63,9 +64,7 @@ const Document = () => {
             xml = xmlRaw.children[i]
             return parseString (xml)
           } else {
-
             //приведем строку в нужный вид
-
             xml = String(xml.value);            
             xml = xml.replace(/&lt;/g, '<') //переделываем спецсимволы в < и >
             xml = xml.replace(/&gt;/g, '>') 
@@ -104,11 +103,6 @@ const Document = () => {
             xml = xml.replace(/<header.*?>/ig,'')
             xml = xml.replace(/<\/header>/ig,'')
 
-            xml = xml.replace(/<source.*?>/ig,'')
-            xml = xml.replace(/<\/source>/ig,'')            
-            xml = xml.replace(/<picture.*?>/ig,'')
-            xml = xml.replace(/<\/picture>/ig,'')
-
             //тут только закрывающие
             xml = xml.replace(/<\/p>/ig,'')
             xml = xml.replace(/<\/h1>/ig,'')
@@ -126,6 +120,15 @@ const Document = () => {
 
             //добавляем получившуюся строку в конец массива
             text.push(xml + " ");
+
+            //найдем картинку и запишем ее урл, если есть          
+            image = xml.split(" ").find(word => word.endsWith(`jpeg"`));
+            if(image == "") {image = xml.split(" ").find(word => word.endsWith(`jpg"`))}
+            if(image == "") {image = xml.split(" ").find(word => word.endsWith(`png"`))}
+            if(image == "") {image = ""}
+            console.log("The extracted URL from given string is: " + image);
+
+
           }
         }        
       }
@@ -134,8 +137,8 @@ const Document = () => {
 
     //объединим элементы массива в единый элемент, если нет тега <br>
     text = text.join("")
-    text = text.split('<br> ')
-
+    text = text.split('<br> ')      
+    
     //конец парсера
 
 
@@ -143,13 +146,14 @@ const Document = () => {
       "id": key, 
       "date": issueDate, 
       "source": source, 
-      "image": '../src/assets/img/results_doc2.jpg', // проверка на 0 и формат
+      "image": image,
       "title": title, 
       "badge": attribute, 
       "count": wordCount, 
       "link": url, 
-      "text": text //формат
+      "text": text 
     })
+
   }   
 
 
@@ -161,15 +165,21 @@ const Document = () => {
         //оборачиваем абзацы в p
         let text = [];
         item.text.forEach((p, index) => {
+          //убираем нужные до этого теги          
           p = p.replace(/<br.*?>/ig,'')
           p = p.replace(/<sentence.*?>/ig,'')
-          p = p.replace(/<\/sentence>/ig,'')
+          p = p.replace(/<\/sentence>/ig,'')          
+          p = p.replace(/<source.*?>/ig,'')
+          p = p.replace(/<\/source>/ig,'')            
+          p = p.replace(/<picture.*?>/ig,'')
+          p = p.replace(/<\/picture>/ig,'')
           text.push(
             <p key={index} className="documents__p">              
               {p}
             </p>
           );          
         });  
+        console.log(item.image);
 
         return (
           <div className="documents__card" key={item.id}>
@@ -183,11 +193,13 @@ const Document = () => {
             <div>
             {item.badge ? <p className="documents__badge">{item.badge}</p> : ""}      
             </div>
-            <img
-              src={item.image}
+
+            {item.image ? <img
+              src={item.image} 
               alt="article"
               className="stretch documents__img"
-            />
+            /> : ""}   
+            
 
             <div className="documents__text grey">{text}</div>
 
