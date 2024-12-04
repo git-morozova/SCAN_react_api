@@ -33,9 +33,6 @@ const Document = () => {
     let wordCount = item.attributes.wordCount; 
     let url = item.url;     
 
-    
-    //Парсер текста статьи
-
     let rawText = item.content.markup
 
     //убираем лишние теги
@@ -46,121 +43,120 @@ const Document = () => {
 
     let image = [];
 
-    //считаем количество текстовых нод в статье 
-    let xmlCountNodes = new XMLParser().parseFromString(item.content.markup,"text/xml").getElementsByTagName("sentence")
-    
-    // в этот массив будем отбирать и добавлять предложения по тегу sentence
-    let text = [];    
-     
-    for (let i = 0; i < xmlCountNodes.length; i++) { 
-      let xml = new XMLParser().parseFromString(rawText,"text/xml").getElementsByTagName("sentence")[i]; 
+    //начало парсера
+    try {
+      //считаем количество текстовых нод в статье 
+      let xmlCountNodes = new XMLParser().parseFromString(item.content.markup,"text/xml").getElementsByTagName("sentence")
+      
+      // в этот массив будем отбирать и добавлять предложения по тегу sentence
+      let text = [];   
+  
+      for (let i = 0; i < xmlCountNodes.length; i++) { 
+        let xml = new XMLParser().parseFromString(rawText,"text/xml").getElementsByTagName("sentence")[i]; 
 
-         //функция замыкания
-      function parseString (xmlRaw) {
-        if(xmlRaw == undefined) {
-          return
-        } else {
-          if(!xmlRaw.value) {            
-            xml = xmlRaw.children[i]
-            return parseString (xml)
+        //функция замыкания
+        function parseString (xmlRaw) {
+          if(xmlRaw == undefined) {
+            return
           } else {
-            //приведем строку в нужный вид
-            xml = String(xml.value);            
-            xml = xml.replace(/&lt;/g, '<') //переделываем спецсимволы в < и >
-            xml = xml.replace(/&gt;/g, '>') 
+            if(!xmlRaw.value) {            
+              xml = xmlRaw.children[i]
+              return parseString (xml)
+            } else {
+              //приведем строку в нужный вид
+              xml = String(xml.value);            
+              xml = xml.replace(/&lt;/g, '<') //переделываем спецсимволы в < и >
+              xml = xml.replace(/&gt;/g, '>') 
 
-            //убираем лишние теги - все нельзя, чтобы оставить абзацы
-            xml = xml.replace(/<blockquote.*?>/ig,'') 
-            xml = xml.replace(/<\/blockquote>/ig,'') 
-            xml = xml.replace(/<body.*?>/ig,'') 
-            xml = xml.replace(/<\/body>/ig,'')
-            xml = xml.replace(/<b.*?>/ig,'')
-            xml = xml.replace(/<\/b>/ig,'')
-            xml = xml.replace(/<em.*?>/ig,'')
-            xml = xml.replace(/<\/em>/ig,'')
-            xml = xml.replace(/<i.*?>/ig,'')
-            xml = xml.replace(/<\/i>/ig,'')
-            xml = xml.replace(/<strong.*?>/ig,'')
-            xml = xml.replace(/<\/strong>/ig,'')
-            xml = xml.replace(/<span.*?>/ig,'')
-            xml = xml.replace(/<\/span>/ig,'')
-            xml = xml.replace(/<div.*?>/ig,'')
-            xml = xml.replace(/<\/div>/ig,'')
-            xml = xml.replace(/<data.*?>/ig,'')
-            xml = xml.replace(/<\/data>/ig,'')
-            xml = xml.replace(/<a.*?>/ig,'')
-            xml = xml.replace(/<\/a>/ig,'')
-            xml = xml.replace(/<index.*?>/ig,'')
-            xml = xml.replace(/<\/index>/ig,'')
-            xml = xml.replace(/<small.*?>/ig,'')
-            xml = xml.replace(/<\/small>/ig,'')
-            xml = xml.replace(/<article.*?>/ig,'')
-            xml = xml.replace(/<\/article>/ig,'')
-            xml = xml.replace(/<ul.*?>/ig,'')
-            xml = xml.replace(/<\/ul>/ig,'')
-            xml = xml.replace(/<hr.*?>/ig,'')
-            xml = xml.replace(/<li.*?>/ig,'')
-            xml = xml.replace(/<header.*?>/ig,'')
-            xml = xml.replace(/<\/header>/ig,'')
-            xml = xml.replace(/&amp;/ig,'&') 
-            xml = xml.replace(/<font.*?>/ig,'')
-            xml = xml.replace(/<\/font>/ig,'')
+              //убираем лишние теги - все нельзя, чтобы оставить абзацы
+              xml = xml.replace(/<blockquote.*?>/ig,'') 
+              xml = xml.replace(/<\/blockquote>/ig,'') 
+              xml = xml.replace(/<body.*?>/ig,'') 
+              xml = xml.replace(/<\/body>/ig,'')
+              xml = xml.replace(/<b.*?>/ig,'')
+              xml = xml.replace(/<\/b>/ig,'')
+              xml = xml.replace(/<em.*?>/ig,'')
+              xml = xml.replace(/<\/em>/ig,'')
+              xml = xml.replace(/<i.*?>/ig,'')
+              xml = xml.replace(/<\/i>/ig,'')
+              xml = xml.replace(/<strong.*?>/ig,'')
+              xml = xml.replace(/<\/strong>/ig,'')
+              xml = xml.replace(/<span.*?>/ig,'')
+              xml = xml.replace(/<\/span>/ig,'')
+              xml = xml.replace(/<div.*?>/ig,'')
+              xml = xml.replace(/<\/div>/ig,'')
+              xml = xml.replace(/<data.*?>/ig,'')
+              xml = xml.replace(/<\/data>/ig,'')
+              xml = xml.replace(/<a.*?>/ig,'')
+              xml = xml.replace(/<\/a>/ig,'')
+              xml = xml.replace(/<index.*?>/ig,'')
+              xml = xml.replace(/<\/index>/ig,'')
+              xml = xml.replace(/<small.*?>/ig,'')
+              xml = xml.replace(/<\/small>/ig,'')
+              xml = xml.replace(/<article.*?>/ig,'')
+              xml = xml.replace(/<\/article>/ig,'')
+              xml = xml.replace(/<ul.*?>/ig,'')
+              xml = xml.replace(/<\/ul>/ig,'')
+              xml = xml.replace(/<hr.*?>/ig,'')
+              xml = xml.replace(/<li.*?>/ig,'')
+              xml = xml.replace(/<header.*?>/ig,'')
+              xml = xml.replace(/<\/header>/ig,'')
+              xml = xml.replace(/&amp;/ig,'&') 
+              xml = xml.replace(/<font.*?>/ig,'')
+              xml = xml.replace(/<\/font>/ig,'')              
 
-            
+              //тут только закрывающие
+              xml = xml.replace(/<\/p>/ig,'')
+              xml = xml.replace(/<\/h1>/ig,'')
+              xml = xml.replace(/<\/h2>/ig,'')
+              xml = xml.replace(/<\/h3>/ig,'')
+              xml = xml.replace(/<\/h4>/ig,'')
 
-            //тут только закрывающие
-            xml = xml.replace(/<\/p>/ig,'')
-            xml = xml.replace(/<\/h1>/ig,'')
-            xml = xml.replace(/<\/h2>/ig,'')
-            xml = xml.replace(/<\/h3>/ig,'')
-            xml = xml.replace(/<\/h4>/ig,'')
+              //вместо открывающего тега <p> пишем br, чтобы потом разделить абзацы
+              xml = xml.replace(/<p.*?>/ig,'<br>')    
+              xml = xml.replace(/<h1.*?>/ig,'<br>') 
+              xml = xml.replace(/<h2.*?>/ig,'<br>') 
+              xml = xml.replace(/<h3.*?>/ig,'<br>') 
+              xml = xml.replace(/<h4.*?>/ig,'<br>') 
+              xml = xml.replace(/<\/li>/ig,'<br>')           
 
-            //вместо открывающего тега <p> пишем br, чтобы потом разделить абзацы
-            xml = xml.replace(/<p.*?>/ig,'<br>')    
-            xml = xml.replace(/<h1.*?>/ig,'<br>') 
-            xml = xml.replace(/<h2.*?>/ig,'<br>') 
-            xml = xml.replace(/<h3.*?>/ig,'<br>') 
-            xml = xml.replace(/<h4.*?>/ig,'<br>') 
-            xml = xml.replace(/<\/li>/ig,'<br>')           
+              //добавляем получившуюся строку в конец массива
+              text.push(xml + " ");
 
-            //добавляем получившуюся строку в конец массива
-            text.push(xml + " ");
+              //найдем картинку и запишем ее урл, если есть   
 
-            //найдем картинку и запишем ее урл, если есть   
+              let imageRaw = xml.split(" ").find(word => word.endsWith(`jpeg"`));
+              if(imageRaw == "") {imageRaw = xml.split(" ").find(word => word.endsWith(`jpg"`))}
+              if(imageRaw == "") {imageRaw = xml.split(" ").find(word => word.endsWith(`png"`))}
+              if(imageRaw == "") {imageRaw = ""}
 
-            let imageRaw = xml.split(" ").find(word => word.endsWith(`jpeg"`));
-            if(imageRaw == "") {imageRaw = xml.split(" ").find(word => word.endsWith(`jpg"`))}
-            if(imageRaw == "") {imageRaw = xml.split(" ").find(word => word.endsWith(`png"`))}
-            if(imageRaw == "") {imageRaw = ""}
-
-            if(imageRaw !== ""){image.push(imageRaw)}
-          }
-        }       
+              if(imageRaw !== ""){image.push(imageRaw)}
+            }
+          }       
+        }
+        parseString(xml)
       }
-      parseString(xml)
+      
+      //объединим элементы массива в единый элемент, если нет тега <br>
+      text = text.join("")
+      text = text.split('<br> ')      
+      
+      docsResultArray.push({
+        "id": key, 
+        "date": issueDate, 
+        "source": source, 
+        "image": image,
+        "title": title, 
+        "badge": attribute, 
+        "count": wordCount, 
+        "link": url, 
+        "text": text 
+      })
+    } catch (e) {
+      console.error("Произошла ошибка парсинга", e); 
     }
-    
-    //объединим элементы массива в единый элемент, если нет тега <br>
-    text = text.join("")
-    text = text.split('<br> ')      
-    
-    //конец парсера
-
-
-    docsResultArray.push({
-      "id": key, 
-      "date": issueDate, 
-      "source": source, 
-      "image": image,
-      "title": title, 
-      "badge": attribute, 
-      "count": wordCount, 
-      "link": url, 
-      "text": text 
-    })
-
   }   
-
+  //конец парсера
 
   return (
     <div className="flex documents flex-btw">

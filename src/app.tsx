@@ -5,7 +5,6 @@ import { createRoot } from 'react-dom/client'
 import { ToastContainer, toast } from 'react-custom-alert';
 import 'react-custom-alert/dist/index.css'; 
 
-import Test from "./pages/Main/Test";
 import Main from "./pages/Main/Main";
 import Auth from "./pages/Auth/Auth";
 import Search from "./pages/Search/Search";
