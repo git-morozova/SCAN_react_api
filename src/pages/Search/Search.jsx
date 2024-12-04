@@ -67,7 +67,7 @@ const Results = observer(() => {
         </div>
         }    
         
-        {console.log("Документов подгружено: " + store.docsResult.length)}              
+        {console.log("Всего документов загружено: " + store.docsResult.length)}              
       </>
       }
     </div>
