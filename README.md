@@ -1,9 +1,11 @@
 # Приложение для поиска публикаций о компании по ИНН
 
-![screen](src/screen.png)
+![screen](screen.png)
 
 Фронтенд-часть сервиса получает данные через API и выводит результат. Имеется сервис аутентификации.
+
 Макет: https://www.figma.com/file/u3MOjzYnTnirz712GrLbFv/Макет-СКАН
+
 Сделан в качестве учебного проекта Skillfactory.
 
 
@@ -11,7 +13,7 @@
 
 - React + Vite
 - axios, mobx, router, xml-parser
-- HTML5, CSS, TS, sass
+- HTML5, CSS, TS, sass, адаптив
 
 
 ### Как запустить development версию
