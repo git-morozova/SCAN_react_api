@@ -44,7 +44,7 @@ const Document = () => {
     rawText = rawText.replace(/<speech.*?>/ig,'')
     rawText = rawText.replace(/<\/speech>/ig,'')
 
-    let image = "";
+    let image = [];
 
     //считаем количество текстовых нод в статье 
     let xmlCountNodes = new XMLParser().parseFromString(item.content.markup,"text/xml").getElementsByTagName("sentence")
@@ -121,20 +121,21 @@ const Document = () => {
             //добавляем получившуюся строку в конец массива
             text.push(xml + " ");
 
-            //найдем картинку и запишем ее урл, если есть          
-            image = xml.split(" ").find(word => word.endsWith(`jpeg"`));
-            if(image == "") {image = xml.split(" ").find(word => word.endsWith(`jpg"`))}
-            if(image == "") {image = xml.split(" ").find(word => word.endsWith(`png"`))}
-            if(image == "") {image = ""}
-            console.log("The extracted URL from given string is: " + image);
+            //найдем картинку и запишем ее урл, если есть   
 
+            let imageRaw = xml.split(" ").find(word => word.endsWith(`jpeg"`));
+            if(imageRaw == "") {imageRaw = xml.split(" ").find(word => word.endsWith(`jpg"`))}
+            if(imageRaw == "") {imageRaw = xml.split(" ").find(word => word.endsWith(`png"`))}
+            if(imageRaw == "") {imageRaw = ""}
 
+            if(imageRaw !== ""){image.push(imageRaw)}
+            //console.log(image);
           }
-        }        
+        }       
       }
       parseString(xml)
     }
-
+    
     //объединим элементы массива в единый элемент, если нет тега <br>
     text = text.join("")
     text = text.split('<br> ')      
@@ -177,9 +178,25 @@ const Document = () => {
             <p key={index} className="documents__p">              
               {p}
             </p>
-          );          
+          );                    
         });  
-        console.log(item.image);
+
+        //приводим ссылку на картинку в нормальный вид
+        let imageLink = item.image.filter(e => e); 
+        item.image = imageLink[0]
+        
+        function detectURLs(message) {
+          if(!message) return;
+          var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+          return message.match(urlRegex)
+        }
+        imageLink = detectURLs(item.image)
+
+        if(imageLink){
+          imageLink = imageLink[0].slice(0, -1);
+          item.image = imageLink
+        }        
+        
 
         return (
           <div className="documents__card" key={item.id}>
