@@ -135,29 +135,34 @@ export default class Store {
                 attributeFilters
             );
             setTimeout(() => {
-                this.saveTotalDocumentsResult(response.data.data[0].data);
-                this.saveRiskFactorsResult(response.data.data[1].data);
+                if(response.data.data.length == 0){
+                    toast.info("Ничего не найдено")
+                    this.requestIsSuccess(true)
+                } else {
+                    this.saveTotalDocumentsResult(response.data.data[0].data);
+                    this.saveRiskFactorsResult(response.data.data[1].data);
 
-                let sum = 0;     // для строки "Найдено ... результатов"
-                for(var i = 0, len = response.data.data[0].data.length; i < len; i++) {
-                    sum += response.data.data[0].data[i].value; 
+                    let sum = 0;     // для строки "Найдено ... результатов"
+                    for(var i = 0, len = response.data.data[0].data.length; i < len; i++) {
+                        sum += response.data.data[0].data[i].value; 
+                    }
+                    runInAction(() => { // иначе - предупреждение в консоли по mobx
+                        this.countResults = sum;
+                    })                
+                    
+                    this.requestIsSuccess(true) 
                 }
-                runInAction(() => { // иначе - предупреждение в консоли по mobx
-                    this.countResults = sum;
-                })                
-                
-                this.requestIsSuccess(true) 
             }, 3000); // имитируем загрузку для проверки лоадера      
                     
         } catch (e) {
-            toast.error(e.response?.data?.message);
+            toast.info("Ничего не найдено");
         } 
     }
     saveTotalDocumentsResult(result: Object) {
-        this.searchResultTotalDocuments = result;        
+        this.searchResultTotalDocuments = result; 
     }
     saveRiskFactorsResult(result: Object) {
-        this.searchResultRiskFactors = result;
+        this.searchResultRiskFactors = result; 
     }
 
     get getTotalDocuments() { //отмечен как computed
@@ -194,10 +199,12 @@ export default class Store {
             setTimeout(() => {
                 this.saveDocsItemsResult(response.data.items);    
                 this.docsItemsCount = response.data.items.length   
-                runInAction(() => { // иначе - предупреждение в консоли по mobx
+                runInAction(() => { // runInAction, иначе - предупреждение в консоли по mobx
                     this.docsItemsReady = true
-                })     
-                this.docs() 
+                })  
+                response.data.items.length == 0 ? "" :
+                 this.docs()
+                
 
             }, 1000); // имитируем загрузку                 
                     
@@ -215,36 +222,39 @@ export default class Store {
 
     async docs() {
         try {
-            if (this.docsItemsCount <= (this.itemsRange[1] +1)) {
-                this.itemsRange[1] = this.docsItemsCount -1
-                this.endOfRange = true
-                toast.info("Все документы загружены");
-            }         
 
-            //собираем актуальный массив id, максимум 10 доков
-            let ids: Array<string> = [];    
-            for(let i = this.itemsRange[0], len = this.itemsRange[1]; i <= len; i++) {
-                ids.push(this.getDocsItemsResult[i].encodedId);               
-            }                         
-
-            //запрашиваем доки для каждого id из актуального массива из 10 доков
-            const response = await DocsService.request(ids); 
-            
-            runInAction(() => { // иначе - предупреждение в консоли по mobx
-                this.docsResult = response.data
-                this.docsResultReady = true
-
-                //после получения массива переписываем itemsRange для следующего запроса
-                if(this.docsItemsCount - this.itemsRange[1] > 9) {
-                    this.itemsRange[1] = this.itemsRange[1] + 10
-                } else {
-
+                if (this.docsItemsCount <= (this.itemsRange[1] +1)) {
                     this.itemsRange[1] = this.docsItemsCount -1
-                }                
-            })             
+                    this.endOfRange = true
+                    toast.info("Все документы загружены");
+                }         
+    
+                //собираем актуальный массив id, максимум 10 доков
+                let ids: Array<string> = [];    
+                for(let i = this.itemsRange[0], len = this.itemsRange[1]; i <= len; i++) {
+                    ids.push(this.getDocsItemsResult[i].encodedId);               
+                }                         
+    
+                //запрашиваем доки для каждого id из актуального массива из 10 доков
+                const response = await DocsService.request(ids); 
+                
+                runInAction(() => { // иначе - предупреждение в консоли по mobx
+                    this.docsResult = response.data
+                    this.docsResultReady = true
+                    toast.info("Данные получены");
+    
+                    //после получения массива переписываем itemsRange для следующего запроса
+                    if(this.docsItemsCount - this.itemsRange[1] > 9) {
+                        this.itemsRange[1] = this.itemsRange[1] + 10
+                    } else {
+    
+                        this.itemsRange[1] = this.docsItemsCount -1
+                    }                
+                })  
+    
                     
         } catch (e) {
-            toast.error(e.response?.data?.message);
+            toast.info("Ничего не найдено");
         } 
     }    
     

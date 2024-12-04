@@ -102,6 +102,11 @@ const Document = () => {
             xml = xml.replace(/<li.*?>/ig,'')
             xml = xml.replace(/<header.*?>/ig,'')
             xml = xml.replace(/<\/header>/ig,'')
+            xml = xml.replace(/&amp;/ig,'&') 
+            xml = xml.replace(/<font.*?>/ig,'')
+            xml = xml.replace(/<\/font>/ig,'')
+
+            
 
             //тут только закрывающие
             xml = xml.replace(/<\/p>/ig,'')
@@ -129,7 +134,6 @@ const Document = () => {
             if(imageRaw == "") {imageRaw = ""}
 
             if(imageRaw !== ""){image.push(imageRaw)}
-            //console.log(image);
           }
         }       
       }
