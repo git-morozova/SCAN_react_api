@@ -23,6 +23,6 @@
 - запуск: команда 'npm run start'
 
 
-### Как запустить prod версию (TODO: только для GTI Pages - поправить ссылки и роутинг)
+### Как запустить prod версию (TODO: только для GIT Pages - поправить ссылки и роутинг)
 
 https://git-morozova.github.io/SCAN_react_api/
