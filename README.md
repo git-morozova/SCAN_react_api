@@ -26,3 +26,6 @@
 ### Как запустить prod версию (TODO: только для GIT Pages - поправить ссылки и роутинг)
 
 https://git-morozova.github.io/SCAN_react_api/
+
+- логин sf_student9  
+- пароль DTdEwAn
